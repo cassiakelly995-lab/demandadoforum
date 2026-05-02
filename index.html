@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demandas do Fórum — OAB Santana de Parnaíba</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f7f9ff;--border:#e2e8f7;--border2:#c8d4f0;
+  --text:#0a1628;--text2:#3d4f72;--text3:#7b8db8;--navy:#0c2461;--blue:#1e3faa;
+  --blue-light:#e8eeff;--blue-mid:#b8caff;--green:#065f46;--green-bg:#d1fae5;
+  --amber:#92400e;--amber-bg:#fef3c7;--red:#991b1b;--red-bg:#fee2e2;
+  --purple:#5b21b6;--purple-bg:#ede9fe;--teal:#134e4a;--teal-bg:#ccfbf1;
+  --indigo:#312e81;--indigo-bg:#e0e7ff;--orange:#9a3412;--orange-bg:#ffedd5;
+  --ff:'Plus Jakarta Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --r:14px;--sh:0 1px 3px rgba(12,36,97,.07),0 2px 8px rgba(12,36,97,.05);
+  --sh2:0 4px 20px rgba(12,36,97,.12);--sh3:0 8px 40px rgba(12,36,97,.18);
+}
+html,body{min-height:100%;font-family:var(--ff);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+#topbar{position:sticky;top:0;z-index:200;background:var(--navy);padding:0 16px;height:60px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 20px rgba(12,36,97,.35)}
+.tb-icon{width:36px;height:36px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tb-text{flex:1;min-width:0}
+.tb-title{font-size:13.5px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.tb-sub{font-size:11px;color:rgba(255,255,255,.5);font-weight:500}
+.tb-clock{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.6);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:5px 11px;border-radius:8px;flex-shrink:0}
+@media(max-width:480px){.tb-clock{display:none}}
+#nav{background:var(--surface);border-bottom:2px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 8px;gap:2px;scrollbar-width:none}
+#nav::-webkit-scrollbar{display:none}
+.ntab{display:flex;align-items:center;gap:6px;padding:13px 16px 11px;font-size:12.5px;font-weight:700;color:var(--text3);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;border-radius:8px 8px 0 0}
+.ntab:hover{color:var(--text2);background:var(--bg)}
+.ntab.active{color:var(--blue);border-bottom-color:var(--blue);background:var(--blue-light)}
+#main{padding:20px 16px 80px;max-width:1200px;margin:0 auto}
+@media(min-width:768px){#main{padding:24px 28px 60px}}
+.panel{display:none}.panel.active{display:block;animation:up .2s ease}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ph{margin-bottom:20px}
+.ph-title{font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.5px;margin-bottom:3px}
+.ph-desc{font-size:13px;color:var(--text3)}
+.sdiv{display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--text3);margin:28px 0 14px}
+.sdiv::after{content:'';flex:1;height:1.5px;background:var(--border)}
+
+/* STEP FLOW */
+.step-flow{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:0;position:relative}
+.step-item:not(:last-child) .step-line{position:absolute;left:19px;top:40px;width:2px;height:calc(100% - 8px);background:var(--border2);z-index:0}
+.step-left{display:flex;flex-direction:column;align-items:center;padding-right:16px;flex-shrink:0;padding-top:4px}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;box-shadow:0 2px 8px rgba(30,63,170,.3)}
+.step-num.ok{background:#059669}.step-num.info{background:#7c3aed}.step-num.warn{background:#d97706}
+.step-right{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)}
+.step-right:hover{border-color:var(--blue-mid);box-shadow:var(--sh2)}
+.step-right.ok{border-color:#6ee7b7;background:#f0fdf4}
+.step-right.info{border-color:#c4b5fd;background:#faf5ff}
+.step-tag{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-bottom:6px;display:inline-block}
+.step-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:6px}
+.step-body{font-size:12.5px;color:var(--text2);line-height:1.7}
+.step-body strong{color:var(--text);font-weight:700}
+.step-body code{font-family:var(--mono);font-size:11.5px;background:var(--bg);border:1px solid var(--border);padding:1px 6px;border-radius:4px;color:var(--blue)}
+.step-note{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:12px;color:var(--text2);line-height:1.55;background:var(--bg);border:1px solid var(--border)}
+.step-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+
+/* MINI STEPS */
+.mini-steps{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.ms{display:flex;align-items:flex-start;gap:10px;background:rgba(30,63,170,.05);border-radius:8px;padding:8px 12px;border:1px solid var(--blue-mid)}
+.ms-num{width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ms-txt{font-size:12px;color:var(--text2);line-height:1.5}
+.ms-txt strong{color:var(--text);font-weight:700}
+
+/* RESPONSE CARDS */
+.rcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+@media(max-width:600px){.rcard-grid{grid-template-columns:1fr}}
+.rcard{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--sh);transition:box-shadow .2s,transform .15s}
+.rcard:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.rcard-hd{padding:14px 16px 12px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--border)}
+.rcard-emoji{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.rcard-meta{flex:1;min-width:0}
+.rcard-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:3px}
+.rcard-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 9px;border-radius:20px}
+.rcard-body{padding:13px 16px}
+.rcard-text{font-size:12.5px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:200px;overflow-y:auto}
+.rcard-text::-webkit-scrollbar{width:3px}
+.rcard-text::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.rcard-ft{padding:10px 16px 14px;display:flex;gap:8px;border-top:1px solid var(--border)}
+.rbtn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-family:var(--ff);font-size:12px;font-weight:700;transition:all .15s}
+.rbtn svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.rbtn-copy{background:var(--blue-light);color:var(--blue)}.rbtn-copy:hover{background:var(--blue-mid)}
+.rbtn-copy.copied{background:var(--green-bg);color:var(--green)}
+.rbtn-expand{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}.rbtn-expand:hover{background:var(--bg)}
+
+/* INFO CARD */
+.icard{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:var(--sh);margin-bottom:14px}
+.icard-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.irow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.irow:last-child{border-bottom:none;padding-bottom:0}
+.idot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.itext{font-size:13px;color:var(--text2);line-height:1.55}
+.itext strong{color:var(--text);font-weight:700}
+
+/* ALERT */
+.alert{display:flex;align-items:flex-start;gap:12px;border-radius:12px;padding:14px 16px;margin-bottom:18px}
+.alert-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.alert-title{font-size:13px;font-weight:800;margin-bottom:3px}
+.alert-text{font-size:12.5px;line-height:1.55}
+.alert-red{background:#fff1f2;border:1.5px solid #fca5a5}.alert-red .alert-title{color:#be123c}.alert-red .alert-text{color:#9f1239}
+.alert-amber{background:#fffbeb;border:1.5px solid #fde68a}.alert-amber .alert-title{color:#d97706}.alert-amber .alert-text{color:#92400e}
+.alert-blue{background:var(--blue-light);border:1.5px solid var(--blue-mid)}.alert-blue .alert-title{color:var(--blue)}.alert-blue .alert-text{color:var(--indigo)}
+.alert-green{background:#f0fdf4;border:1.5px solid #86efac}.alert-green .alert-title{color:#166534}.alert-green .alert-text{color:#14532d}
+
+/* EMAIL CARDS */
+.email-section{margin-bottom:24px}
+.email-section-title{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.email-section-title::after{content:'';flex:1;height:1.5px;background:var(--border)}
+.email-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+@media(max-width:600px){.email-grid{grid-template-columns:1fr}}
+.ecard{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:12px;
+  padding:14px 16px;box-shadow:var(--sh);
+  display:flex;align-items:flex-start;gap:12px;
+  transition:box-shadow .15s,transform .15s;
+}
+.ecard:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.ecard.mag{border-color:#c7d2fe;background:#fafbff}
+.ecard-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ecard-body{flex:1;min-width:0}
+.ecard-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.ecard-role{font-size:11px;color:var(--text3);font-weight:500;margin-bottom:7px}
+.ecard-email{font-family:var(--mono);font-size:11.5px;color:var(--blue);font-weight:500;word-break:break-all;margin-bottom:8px}
+.ecard-actions{display:flex;gap:6px;flex-wrap:wrap}
+.eact{
+  display:flex;align-items:center;gap:5px;
+  padding:5px 11px;border-radius:7px;border:none;cursor:pointer;
+  font-family:var(--ff);font-size:11.5px;font-weight:700;
+  transition:all .15s;text-decoration:none;
+}
+.eact svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.eact-mail{background:#dbeafe;color:#1e40af}.eact-mail:hover{background:#bfdbfe}
+.eact-copy{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}.eact-copy:hover{background:var(--bg)}
+.eact-copy.copied{background:var(--green-bg);color:var(--green);border-color:#6ee7b7}
+
+/* MODAL */
+#moverlay{position:fixed;inset:0;background:rgba(10,22,40,.55);backdrop-filter:blur(5px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
+#moverlay.open{display:flex;animation:fi .15s ease}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+#modal{background:var(--surface);border-radius:18px;width:100%;max-width:640px;max-height:90vh;box-shadow:var(--sh3);display:flex;flex-direction:column;animation:su .2s cubic-bezier(.34,1.56,.64,1)}
+@keyframes su{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+#m-hd{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+#m-emoji{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--blue-light)}
+#m-title{font-size:16px;font-weight:800;color:var(--text);flex:1}
+#m-close{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+#m-close:hover{background:var(--bg)}
+#m-close svg{width:14px;height:14px;stroke:var(--text3);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#m-body{padding:22px 24px;overflow-y:auto;flex:1}
+#m-text{font-size:13.5px;color:var(--text2);line-height:1.75;white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:18px 20px}
+#m-ft{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+.mbtn-sec{background:var(--surface2);color:var(--text2);padding:10px 18px;border-radius:9px;border:1.5px solid var(--border);font-family:var(--ff);font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
+.mbtn-sec:hover{background:var(--bg)}
+.mbtn-pri{background:var(--blue);color:#fff;padding:10px 22px;border-radius:9px;border:none;font-family:var(--ff);font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,transform .1s}
+.mbtn-pri:hover{background:#1535a0}.mbtn-pri:active{transform:scale(.97)}
+.mbtn-pri svg{width:14px;height:14px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy);border-radius:12px;padding:11px 22px;font-size:13px;font-weight:700;color:#fff;opacity:0;transition:all .22s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:999;white-space:nowrap;box-shadow:var(--sh3);display:flex;align-items:center;gap:9px}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast svg{width:15px;height:15px;stroke:#4ade80;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.c-blue{background:var(--blue-light);color:var(--blue)}.c-green{background:var(--green-bg);color:var(--green)}
+.c-amber{background:var(--amber-bg);color:var(--amber)}.c-red{background:var(--red-bg);color:var(--red)}
+.c-purple{background:var(--purple-bg);color:var(--purple)}.c-teal{background:var(--teal-bg);color:var(--teal)}
+.c-indigo{background:var(--indigo-bg);color:var(--indigo)}.c-orange{background:var(--orange-bg);color:var(--orange)}
+.tag-blue{background:var(--blue-light);color:var(--blue)}.tag-green{background:var(--green-bg);color:var(--green)}
+.tag-amber{background:var(--amber-bg);color:var(--amber)}.tag-red{background:var(--red-bg);color:var(--red)}
+.tag-purple{background:var(--purple-bg);color:var(--purple)}.tag-teal{background:var(--teal-bg);color:var(--teal)}
+.tag-indigo{background:var(--indigo-bg);color:var(--indigo)}
+</style>
+</head>
+<body>
+<div id="topbar">
+  <div class="tb-icon">⚖️</div>
+  <div class="tb-text">
+    <div class="tb-title">Demandas do Fórum — OAB Santana de Parnaíba</div>
+    <div class="tb-sub">Painel operacional · Convênio DPESP-OAB</div>
+  </div>
+  <div class="tb-clock" id="clock">--:--:--</div>
+</div>
+
+<div id="nav">
+  <div class="ntab active" onclick="sw('nomeacao')" data-tab="nomeacao"><span>📋</span> Nomeação — Vítima Especial</div>
+  <div class="ntab" onclick="sw('respostas')" data-tab="respostas"><span>💬</span> Respostas ao Fórum</div>
+  <div class="ntab" onclick="sw('curador')" data-tab="curador"><span>👤</span> Curador Especial</div>
+  <div class="ntab" onclick="sw('avaliacao')" data-tab="avaliacao"><span>🗂️</span> Avaliação Financeira</div>
+  <div class="ntab" onclick="sw('emails')" data-tab="emails"><span>📧</span> E-mails UPJ Cível</div>
+  <div class="ntab" onclick="sw('criterios')" data-tab="criterios"><span>📌</span> Critérios e Regras</div>
+</div>
+
+<div id="main">
+
+  <!-- ══ ABA 1 — NOMEAÇÃO ══ -->
+  <div class="panel active" id="panel-nomeacao">
+    <div class="ph">
+      <div class="ph-title">Nomeação — Depoimento Especial da Vítima</div>
+      <div class="ph-desc">Tutorial no sistema DOL para indicar advogado conveniado ao ato do depoimento especial de criança/adolescente vítima de violência (Lei 13.431/17).</div>
+    </div>
+
+    <div class="alert alert-blue">
+      <div class="alert-icon">✅</div>
+      <div>
+        <div class="alert-title">Presunção de vulnerabilidade — não exige avaliação financeira</div>
+        <div class="alert-text">Vítima de violência (Lei 13.431/17) · Acolhidos institucionalmente · Em cumprimento de internação · Necessidade de proteção de identidade de gênero com oposição dos responsáveis. Nestes casos, a indicação ocorre <strong>independentemente de avaliação financeira</strong> e da presença de responsável.</div>
+      </div>
+    </div>
+
+    <div class="sdiv">Passo a passo no sistema DOL</div>
+    <div class="step-flow">
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num">1</div></div>
+        <div class="step-right">
+          <div class="step-tag tag-blue">Acesso</div>
+          <div class="step-title">Localizar o Usuário no Sistema</div>
+          <div class="step-body">No DOL, clique em <strong>Cadastro</strong> → pesquise pelo <strong>CPF</strong>, nome ou pelo <strong>Número de Identificação DPESP</strong> constante no ofício.<br><br>Nos resultados, clique na <strong>seta ( › ) à direita</strong> para entrar no cadastro do usuário.</div>
+          <div class="step-note">💡 O número de identificação DPESP é o mais indicado — evita confusão com cadastros duplicados.</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num">2</div></div>
+        <div class="step-right">
+          <div class="step-tag tag-indigo">Histórico</div>
+          <div class="step-title">Acessar "Histórico DPESP" → "Inserir novo problema"</div>
+          <div class="step-body">Dentro do cadastro, clique na aba <strong>"Histórico DPESP"</strong>. Em seguida clique em <strong>"Inserir novo problema"</strong> e preencha:
+          <div class="mini-steps">
+            <div class="ms"><div class="ms-num">A</div><div class="ms-txt"><strong>Área de atuação:</strong> <code>Criminal — Criminal (Vara Singular)</code></div></div>
+            <div class="ms"><div class="ms-num">B</div><div class="ms-txt"><strong>Problema:</strong> <code>Depoimento Especial da Vítima</code></div></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num">3</div></div>
+        <div class="step-right">
+          <div class="step-tag tag-amber">Envolvidos</div>
+          <div class="step-title">Incluir a Vítima como Envolvida</div>
+          <div class="step-body">Clique no ícone de <strong>pessoas</strong> (centro da tela) para adicionar envolvido. Configure:
+          <div class="mini-steps">
+            <div class="ms"><div class="ms-num">A</div><div class="ms-txt"><strong>Posição:</strong> <code>Autor/a</code></div></div>
+            <div class="ms"><div class="ms-num">B</div><div class="ms-txt">Marque <strong>"Usuário"</strong> e <strong>"Representado pela Defensoria"</strong></div></div>
+            <div class="ms"><div class="ms-num">C</div><div class="ms-txt">Clique em <strong>"Salvar"</strong> — para mais réus use "Inserir novo envolvido". Ao terminar: <strong>"Fechar janela"</strong></div></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num ok">4</div></div>
+        <div class="step-right ok">
+          <div class="step-tag tag-green">Convênio OAB</div>
+          <div class="step-title">Selecionar "Convênio OAB" e Salvar</div>
+          <div class="step-body">Em <strong>Encaminhamento</strong>, marque <strong>"Convênio OAB"</strong>.<br>Informe e valide o <strong>nº OAB</strong> do advogado da triagem. Preencha <strong>"Responsável conveniado"</strong> e clique em <strong>"Salvar"</strong>.</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-line"></div>
+        <div class="step-left"><div class="step-num ok">5</div></div>
+        <div class="step-right ok">
+          <div class="step-tag tag-green">Encaminhamento DPESP-OAB</div>
+          <div class="step-title">Finalizar na aba "Encaminhamento DPESP-OAB"</div>
+          <div class="step-body">Preencha:
+          <div class="mini-steps">
+            <div class="ms"><div class="ms-num">A</div><div class="ms-txt"><strong>Número do processo</strong> (formato: 0000000-00.0000.0.00.0000)</div></div>
+            <div class="ms"><div class="ms-num">B</div><div class="ms-txt"><strong>Instância / Comarca / Foro / Vara</strong></div></div>
+            <div class="ms"><div class="ms-num">C</div><div class="ms-txt"><strong>Justificativa:</strong> Ex.: "Vítima em situação de acolhimento institucional."</div></div>
+            <div class="ms"><div class="ms-num">D</div><div class="ms-txt">Anexe: <strong>despacho/ofício do juiz</strong> e <strong>documentos da audiência</strong> (quando houver)</div></div>
+          </div>
+          Clique em <strong>"Salvar"</strong>. A mensagem <em>"Solicitação encaminhada com sucesso"</em> confirma o envio.</div>
+          <div class="step-note">📧 Após o envio, aguarde a análise da Assessoria de Convênios. Você será notificado por e-mail sobre o deferimento ou indeferimento.</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-left"><div class="step-num info">6</div></div>
+        <div class="step-right info">
+          <div class="step-tag tag-indigo">Resultado</div>
+          <div class="step-title">Pedido Deferido — Ofício Gerado Automaticamente</div>
+          <div class="step-body">Se deferido, o sistema exibe o <strong>nome e nº OAB</strong> do advogado nomeado e gera o <strong>ofício de indicação</strong> automaticamente para envio ao fórum.<br><br>Se já existir advogado nomeado para o processo, o sistema exibirá aviso — clique em <strong>"Clique aqui"</strong> para consultar os dados.</div>
+          <div class="step-chips">
+            <span class="chip c-indigo">Convênio DPESP/OAB-SP</span>
+            <span class="chip c-blue">Criminal — Vara Singular</span>
+            <span class="chip c-green">Depoimento Especial da Vítima</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sdiv">Contato — Assessoria de Convênios DPESP</div>
+    <div class="icard">
+      <div class="irow"><div class="idot" style="background:var(--blue)"></div><div class="itext"><strong>Telefones:</strong> (11) 4802-9622 e (11) 4802-9623</div></div>
+      <div class="irow"><div class="idot" style="background:var(--blue)"></div><div class="itext"><strong>E-mail:</strong> ssi@defensoria.sp.def.br</div></div>
+    </div>
+  </div>
+
+  <!-- ══ ABA 2 — RESPOSTAS ══ -->
+  <div class="panel" id="panel-respostas">
+    <div class="ph">
+      <div class="ph-title">Respostas ao Fórum</div>
+      <div class="ph-desc">Mensagens institucionais prontas para responder ofícios e demandas do fórum.</div>
+    </div>
+    <div class="rcard-grid" id="respostas-grid"></div>
+  </div>
+
+  <!-- ══ ABA 3 — CURADOR ESPECIAL ══ -->
+  <div class="panel" id="panel-curador">
+    <div class="ph">
+      <div class="ph-title">Curador Especial</div>
+      <div class="ph-desc">Orientações e respostas para demandas de curador especial — existência de nomeação, cancelamento e envio de ofício.</div>
+    </div>
+
+    <div class="alert alert-red">
+      <div class="alert-icon">🚫</div>
+      <div>
+        <div class="alert-title">Não é possível nomear novo Curador Especial se já existe um ativo no processo</div>
+        <div class="alert-text">Quando já há advogado nomeado como curador especial no sistema, o fórum deve ser informado com os dados da nomeação existente. Só é possível nova indicação se a nomeação anterior estiver cancelada (sem nome/data exibidos no sistema).</div>
+      </div>
+    </div>
+
+    <div class="icard">
+      <div class="icard-title">ℹ️ O que verificar ao receber ofício de Curador Especial</div>
+      <div class="irow"><div class="idot" style="background:var(--blue)"></div><div class="itext"><strong>1º:</strong> No DOL, aba "Encaminhamento DPESP-OAB", consulte o número do processo informado no ofício.</div></div>
+      <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Se não existir nomeação:</strong> Proceder normalmente com o tutorial de nomeação (aba correspondente).</div></div>
+      <div class="irow"><div class="idot" style="background:var(--red)"></div><div class="itext"><strong>Se já existir nomeação ativa:</strong> O sistema exibe botão "Clique aqui". Anote nome, OAB e data — responda ao fórum informando que já existe curador nomeado.</div></div>
+      <div class="irow"><div class="idot" style="background:var(--amber)"></div><div class="itext"><strong>Se a nomeação foi cancelada:</strong> Sistema não exibe dados (nome/data em branco). Nesse caso, nova indicação é possível.</div></div>
+    </div>
+
+    <div class="sdiv">Respostas prontas — Curador Especial</div>
+    <div class="rcard-grid" id="curador-grid"></div>
+  </div>
+
+  <!-- ══ ABA 4 — AVALIAÇÃO FINANCEIRA ══ -->
+  <div class="panel" id="panel-avaliacao">
+    <div class="ph">
+      <div class="ph-title">Avaliação Financeira</div>
+      <div class="ph-desc">Regras e prazo de validade da avaliação financeira no sistema da Defensoria — e como responder ao fórum quando a nomeação não pode ser feita.</div>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-icon">⏳</div>
+      <div>
+        <div class="alert-title">Validade: 1 (um) ano a partir da data de concessão</div>
+        <div class="alert-text">Quando o fórum solicita nomeação de advogado e o assistido está com avaliação financeira vencida no sistema, <strong>não é possível realizar nova indicação</strong>. O próprio fórum deve ser informado e orientado a comunicar o assistido para comparecer ao atendimento presencial no Poupatempo.</div>
+      </div>
+    </div>
+
+    <div class="icard">
+      <div class="icard-title">🏛️ Atendimento para Nova Avaliação — Poupatempo</div>
+      <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Endereço:</strong> Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo</div></div>
+      <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Horário:</strong> Segunda a sexta-feira, das 09h às 12h</div></div>
+      <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Senhas:</strong> Até 30 por dia, distribuídas presencialmente no local</div></div>
+      <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Telefone:</strong> (11) 4154-5191</div></div>
+    </div>
+
+    <div class="sdiv">Resposta pronta ao Fórum — Avaliação Vencida</div>
+    <div class="rcard-grid" id="avaliacao-grid"></div>
+  </div>
+
+  <!-- ══ ABA 5 — EMAILS UPJ ══ -->
+  <div class="panel" id="panel-emails">
+    <div class="ph">
+      <div class="ph-title">E-mails Institucionais — UPJ Cível</div>
+      <div class="ph-desc">Endereços eletrônicos da Unidade de Processamento Judicial (UPJ) Cível da Comarca de Santana de Parnaíba. Clique em "Enviar e-mail" para abrir no seu cliente de e-mail ou copie o endereço.</div>
+    </div>
+
+    <div class="email-section">
+      <div class="email-section-title">🏛️ Unidades Judiciais — UPJ Cível</div>
+      <div class="email-grid" id="grid-upj"></div>
+    </div>
+
+    <div class="email-section">
+      <div class="email-section-title">👨‍⚖️ Gabinetes dos Magistrados</div>
+      <div class="email-grid" id="grid-mag"></div>
+    </div>
+  </div>
+
+  <!-- ══ ABA 6 — CRITÉRIOS ══ -->
+  <div class="panel" id="panel-criterios">
+    <div class="ph">
+      <div class="ph-title">Critérios e Regras — Convênio DPESP/OAB</div>
+      <div class="ph-desc">Referência rápida: quem tem direito à nomeação, com ou sem avaliação financeira.</div>
+    </div>
+
+    <div class="alert alert-green">
+      <div class="alert-icon">✅</div>
+      <div>
+        <div class="alert-title">Presunção de vulnerabilidade — SEM avaliação financeira</div>
+        <div class="alert-text">Os casos abaixo não exigem avaliação financeira nem presença de responsável legal.</div>
+      </div>
+    </div>
+    <div class="icard">
+      <div class="icard-title">✅ Com Presunção — Sem Avaliação Financeira</div>
+      <div class="irow"><div class="idot" style="background:#059669"></div><div class="itext"><strong>Vítima de violência (Lei 13.431/17):</strong> criança/adolescente para o ato do depoimento especial.</div></div>
+      <div class="irow"><div class="idot" style="background:#059669"></div><div class="itext"><strong>Acolhidos institucionalmente</strong> ou em cumprimento de medida de internação.</div></div>
+      <div class="irow"><div class="idot" style="background:#059669"></div><div class="itext"><strong>Identidade de gênero:</strong> quando houver oposição ou omissão dos responsáveis legais sobre tratamentos, nome social etc.</div></div>
+    </div>
+
+    <div class="alert alert-amber">
+      <div class="alert-icon">⚠️</div>
+      <div>
+        <div class="alert-title">Sem presunção — Exige triagem com avaliação financeira e análise jurídica</div>
+        <div class="alert-text">Os casos abaixo precisam de triagem regular antes de qualquer nomeação.</div>
+      </div>
+    </div>
+    <div class="icard">
+      <div class="icard-title">❌ Sem Presunção — Requer Avaliação Financeira</div>
+      <div class="irow"><div class="idot" style="background:#d97706"></div><div class="itext"><strong>Violência patrimonial</strong> que não repercuta em outros direitos fundamentais.</div></div>
+      <div class="irow"><div class="idot" style="background:#d97706"></div><div class="itext"><strong>Guarda, alimentos ou divórcio</strong> dos pais/representantes — salvo quando a criança/adolescente intervir diretamente para proteger direito fundamental.</div></div>
+      <div class="irow"><div class="idot" style="background:#d97706"></div><div class="itext"><strong>Violência psicológica esporádica</strong> (xingamentos, constrangimentos não sistemáticos, bullying entre adolescentes).</div></div>
+    </div>
+
+    <div class="icard">
+      <div class="icard-title">📚 Fundamentação Legal</div>
+      <div class="irow"><div class="idot" style="background:var(--purple)"></div><div class="itext"><strong>Lei nº 13.431/2017</strong> — sistema de garantia de direitos da criança e adolescente vítima ou testemunha de violência.</div></div>
+      <div class="irow"><div class="idot" style="background:var(--purple)"></div><div class="itext"><strong>Deliberação 89/08 do CSDP, art. 2º, §20</strong> — com redação da Deliberação 409/23 — presunção de usuário da Defensoria para vítimas do depoimento especial.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div id="moverlay" onclick="closeModal(event)">
+  <div id="modal">
+    <div id="m-hd">
+      <div id="m-emoji"></div>
+      <div id="m-title"></div>
+      <button id="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div id="m-body"><div id="m-text"></div></div>
+    <div id="m-ft">
+      <button class="mbtn-sec" onclick="closeModal()">Fechar</button>
+      <button class="mbtn-pri" id="m-copy" onclick="copyModal()">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2v1"/></svg>
+        Copiar mensagem
+      </button>
+    </div>
+  </div>
+</div>
+<div id="toast"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="toast-msg">Copiado!</span></div>
+
+<script>
+/* ══ DADOS ══ */
+var RESPOSTAS=[
+  {id:'r1',emoji:'📄',color:'c-blue',badge:'tag-blue',badgeText:'Ofício Recebido',title:'Resposta Padrão — Ofício Recebido',
+  text:"Prezada(o) Meritíssima(o),\n\nCumprimentando cordialmente, vimos, em atenção ao ofício recebido, prestar as informações solicitadas e os esclarecimentos necessários referentes ao caso em questão.\n\nPermanecem à inteira disposição para quaisquer informações adicionais.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
+  {id:'r2',emoji:'✅',color:'c-green',badge:'tag-green',badgeText:'Nomeação Realizada',title:'Confirmar Nomeação ao Fórum',
+  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que foi realizada a indicação de advogado(a) conveniado(a) junto à Assessoria de Convênios da Defensoria Pública do Estado de São Paulo para acompanhamento do caso, nos termos do Convênio DPESP/OAB-SP.\n\nO ofício de indicação será encaminhado ao(à) advogado(a) nomeado(a) diretamente pela Defensoria Pública.\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
+  {id:'r3',emoji:'🔍',color:'c-indigo',badge:'tag-indigo',badgeText:'Solicitando Informações',title:'Solicitar Dados para Instrução do Pedido',
+  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que para darmos prosseguimento à análise e eventual indicação de advogado(a) conveniado(a), necessitamos das seguintes informações/documentos:\n\n— Número completo do processo\n— Identificação e dados completos da parte a ser assistida\n— Despacho ou ofício do Juízo solicitando a nomeação\n— Documentos pertinentes à audiência ou ao ato processual\n\nApós o recebimento, daremos o encaminhamento adequado.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
+  {id:'r4',emoji:'📬',color:'c-teal',badge:'tag-teal',badgeText:'Acuse de Recebimento',title:'Acuse de Recebimento de Ofício',
+  text:"Prezado(a),\n\nAcusamos o recebimento do ofício encaminhado a esta Assistência Judiciária e informamos que o documento foi devidamente recepcionado e encaminhado ao setor competente para as providências cabíveis.\n\nQualquer atualização será comunicada oportunamente.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"}
+];
+
+var CURADOR=[
+  {id:'cu1',emoji:'🚫',color:'c-red',badge:'tag-red',badgeText:'Já Existe Curador',title:'Resposta ao Fórum — Já Existe Curador Nomeado',
+  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, após consulta ao sistema de indicações da Defensoria Pública do Estado de São Paulo (DOL), verificamos que para o processo nº [NÚMERO DO PROCESSO] já consta advogado(a) conveniado(a) nomeado(a) como curador(a) especial:\n\nAdvogado(a): [NOME DO ADVOGADO]\nInscrição OAB: [Nº OAB]\nData de Indicação: [DATA]\n\nEm razão da existência de nomeação válida e ativa no sistema, não é possível realizar nova indicação para o mesmo processo.\n\nCaso o Juízo entenda necessária a substituição do(a) curador(a) ou haja alguma intercorrência, solicitamos comunicação formal para que possamos verificar as providências cabíveis.\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
+  {id:'cu2',emoji:'📎',color:'c-green',badge:'tag-green',badgeText:'Envio de Ofício',title:'Encaminhar Ofício de Curador ao Fórum',
+  text:"Prezado(a),\n\nEm atendimento à demanda de V.Sa., segue em anexo o Ofício de Indicação de Curador Especial para as devidas providências.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
+  {id:'cu3',emoji:'🔄',color:'c-purple',badge:'tag-purple',badgeText:'Nomeação Cancelada',title:'Nomeação Anterior Cancelada — Nova Indicação Realizada',
+  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao consultarmos o sistema da Defensoria Pública do Estado de São Paulo, verificamos que a nomeação anterior de curador(a) especial para o processo nº [NÚMERO DO PROCESSO] foi CANCELADA, não constando dados de advogado(a) ou data de indicação ativa.\n\nEm razão disso, procedemos ao encaminhamento de nova solicitação de indicação junto à Assessoria de Convênios da Defensoria Pública, que analisará o pedido e emitirá o respectivo ofício ao(à) advogado(a) indicado(a).\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
+  {id:'cu4',emoji:'❓',color:'c-amber',badge:'tag-amber',badgeText:'Aguardando Dados',title:'Solicitar Nº do Processo para Verificar Curador',
+  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, para que possamos verificar a existência de curador(a) especial já nomeado(a) e dar o encaminhamento adequado, solicitamos que nos informe:\n\n— Número completo do processo\n— Nome completo e dados da parte a ser assistida\n— Cópia do despacho ou decisão judicial solicitando a nomeação\n\nApós o recebimento, realizaremos a consulta ao sistema e daremos retorno com brevidade.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"}
+];
+
+var AVALIACAO=[
+  {id:'av1',emoji:'⏳',color:'c-amber',badge:'tag-amber',badgeText:'Avaliação Vencida',title:'Resposta ao Fórum — Avaliação Financeira Vencida',
+  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao verificar o cadastro do(a) assistido(a) em nosso sistema, identificamos que a avaliação financeira registrada encontra-se VENCIDA — sua validade é de 1 (um) ano.\n\nPor esse motivo, não é possível dar prosseguimento à indicação de advogado(a) conveniado(a) sem que seja realizada nova avaliação presencial.\n\nOrientamos que o(a) assistido(a) compareça ao atendimento presencial:\n\nLocal: Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo\nHorário: Segunda a sexta-feira, das 09h às 12h (até 30 senhas/dia)\nTelefone: (11) 4154-5191\n\nApós a nova avaliação, daremos prosseguimento à indicação.\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba"}
+];
+
+/* ══ E-MAILS UPJ ══ */
+var UPJ=[
+  {nome:'1ª Vara Cível',role:'Unidade Judicial',email:'parnaiba1cv@tjsp.jus.br',icon:'⚖️',color:'#dbeafe'},
+  {nome:'2ª Vara Cível',role:'Unidade Judicial',email:'parnaiba2cv@tjsp.jus.br',icon:'⚖️',color:'#dbeafe'},
+  {nome:'Vara da Família e das Sucessões',role:'Unidade Judicial',email:'parnaibafam@tjsp.jus.br',icon:'👨‍👩‍👧',color:'#fce7f3'},
+  {nome:'UPJ Cível (1ª, 2ª e Família)',role:'Unidade de Processamento Judicial — UPJ',email:'upj1e2famparnaiba@tjsp.jus.br',icon:'🏛️',color:'#d1fae5'}
+];
+var MAG=[
+  {nome:'Dra. Thais da Silva Porto',role:'Magistrada',email:'gabtporto@tjsp.jus.br',icon:'👩‍⚖️',color:'#ede9fe'},
+  {nome:'Dr. Luis Antonio Nocito Echevarria',role:'Magistrado',email:'gablaechevarria@tjsp.jus.br',icon:'👨‍⚖️',color:'#ede9fe'},
+  {nome:'Dra. Andressa Martins Bejarano',role:'Magistrada',email:'gabambejarano@tjsp.jus.br',icon:'👩‍⚖️',color:'#ede9fe'},
+  {nome:'Dr. Daniel Lucio da Silva Porto',role:'Magistrado',email:'gabdporto@tjsp.jus.br',icon:'👨‍⚖️',color:'#ede9fe'}
+];
+
+/* ══ RENDER ══ */
+function cpySVG(){return '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'}
+function chkSVG(){return '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'}
+function expSVG(){return '<svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>'}
+function mailSVG(){return '<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>'}
+function escH(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function renderGrid(data,cid){
+  var el=document.getElementById(cid);if(!el)return;
+  el.innerHTML=data.map(function(d){
+    return '<div class="rcard"><div class="rcard-hd"><div class="rcard-emoji '+d.color+'">'+d.emoji+'</div>'
+      +'<div class="rcard-meta"><div class="rcard-title">'+d.title+'</div>'
+      +'<span class="rcard-badge '+d.badge+'">'+d.badgeText+'</span></div></div>'
+      +'<div class="rcard-body"><div class="rcard-text">'+escH(d.text)+'</div></div>'
+      +'<div class="rcard-ft">'
+      +'<button class="rbtn rbtn-copy" onclick="copyCard(this,\''+d.id+'\')">'+cpySVG()+'Copiar</button>'
+      +'<button class="rbtn rbtn-expand" onclick="openModal(\''+d.id+'\')">'+expSVG()+'Ver completo</button>'
+      +'</div></div>';
+  }).join('');
+}
+
+function renderEmails(data,cid,isMag){
+  var el=document.getElementById(cid);if(!el)return;
+  el.innerHTML=data.map(function(d,i){
+    return '<div class="ecard'+(isMag?' mag':'')+'"><div class="ecard-icon" style="background:'+d.color+'">'+d.icon+'</div>'
+      +'<div class="ecard-body">'
+      +'<div class="ecard-name">'+d.nome+'</div>'
+      +'<div class="ecard-role">'+d.role+'</div>'
+      +'<div class="ecard-email">'+d.email+'</div>'
+      +'<div class="ecard-actions">'
+      +'<a class="eact eact-mail" href="mailto:'+d.email+'">'+mailSVG()+'Enviar e-mail</a>'
+      +'<button class="eact eact-copy" onclick="copyEmail(this,\''+d.email+'\')">'+cpySVG()+'Copiar</button>'
+      +'</div></div></div>';
+  }).join('');
+}
+
+var ALL=[].concat(RESPOSTAS,CURADOR,AVALIACAO);
+function getById(id){return ALL.find(function(d){return d.id===id})}
+
+function copyCard(btn,id){
+  var d=getById(id);if(!d)return;
+  navigator.clipboard.writeText(d.text).then(function(){
+    btn.classList.add('copied');btn.innerHTML=chkSVG()+'Copiado!';toast('Mensagem copiada!');
+    setTimeout(function(){btn.classList.remove('copied');btn.innerHTML=cpySVG()+'Copiar'},1900);
+  });
+}
+function copyEmail(btn,email){
+  navigator.clipboard.writeText(email).then(function(){
+    btn.classList.add('copied');var o=btn.innerHTML;btn.innerHTML=chkSVG()+'Copiado!';toast('E-mail copiado!');
+    setTimeout(function(){btn.classList.remove('copied');btn.innerHTML=o},1900);
+  });
+}
+
+var _mid=null;
+function openModal(id){
+  var d=getById(id);if(!d)return;_mid=id;
+  document.getElementById('m-emoji').textContent=d.emoji;
+  document.getElementById('m-title').textContent=d.title;
+  document.getElementById('m-text').textContent=d.text;
+  document.getElementById('moverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('moverlay'))return;
+  document.getElementById('moverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function copyModal(){
+  if(!_mid)return;var d=getById(_mid);if(!d)return;
+  navigator.clipboard.writeText(d.text).then(function(){
+    var b=document.getElementById('m-copy');b.innerHTML=chkSVG()+'Copiado!';toast('Mensagem copiada!');
+    setTimeout(function(){b.innerHTML=cpySVG()+'Copiar mensagem'},1900);
+  });
+}
+function sw(name){
+  document.querySelectorAll('.ntab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelector('[data-tab="'+name+'"]').classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+var _tt;
+function toast(m){
+  document.getElementById('toast-msg').textContent=m;
+  var e=document.getElementById('toast');e.classList.add('show');clearTimeout(_tt);
+  _tt=setTimeout(function(){e.classList.remove('show')},2300);
+}
+function updateClock(){
+  var n=new Date();
+  document.getElementById('clock').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
+}
+setInterval(updateClock,1000);updateClock();
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal({})});
+
+renderGrid(RESPOSTAS,'respostas-grid');
+renderGrid(CURADOR,'curador-grid');
+renderGrid(AVALIACAO,'avaliacao-grid');
+renderEmails(UPJ,'grid-upj',false);
+renderEmails(MAG,'grid-mag',true);
+</script>
+</body>
+</html>
