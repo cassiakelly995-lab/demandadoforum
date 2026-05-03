@@ -3,298 +3,612 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demandas do Fórum — OAB Santana de Parnaíba</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Painel Fórum — OAB Santana de Parnaíba</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#f0f4ff;--surface:#fff;--surface2:#f7f9ff;--border:#e2e8f7;--border2:#c8d4f0;
-  --text:#0a1628;--text2:#3d4f72;--text3:#7b8db8;--navy:#0c2461;--blue:#1e3faa;
-  --blue-light:#e8eeff;--blue-mid:#b8caff;--green:#065f46;--green-bg:#d1fae5;
-  --amber:#92400e;--amber-bg:#fef3c7;--red:#991b1b;--red-bg:#fee2e2;
-  --purple:#5b21b6;--purple-bg:#ede9fe;--teal:#134e4a;--teal-bg:#ccfbf1;
-  --indigo:#312e81;--indigo-bg:#e0e7ff;--orange:#9a3412;--orange-bg:#ffedd5;
-  --ff:'Plus Jakarta Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
-  --r:14px;--sh:0 1px 3px rgba(12,36,97,.07),0 2px 8px rgba(12,36,97,.05);
-  --sh2:0 4px 20px rgba(12,36,97,.12);--sh3:0 8px 40px rgba(12,36,97,.18);
+  --ink:#0b1120;--ink2:#2d3a52;--ink3:#6b7a99;--ink4:#a0adc4;
+  --paper:#f4f6fb;--surface:#ffffff;--surface2:#f8f9fd;
+  --border:#e3e8f4;--border2:#c8d3eb;
+  --gold:#c8972a;--gold-light:#fdf3dc;--gold-mid:#f0d88a;
+  --navy:#0c2461;--blue:#1a3fbf;--blue-l:#e8eeff;--blue-m:#b8caff;
+  --green:#0a6640;--green-l:#d4f7e7;--green-m:#6ee7b7;
+  --red:#9b1b1b;--red-l:#fde8e8;
+  --amber:#8a4800;--amber-l:#fff0d6;
+  --purple:#4c1d95;--purple-l:#ede9fe;
+  --teal:#0f4c47;--teal-l:#ccfbf1;
+  --r:12px;--r2:20px;
+  --sh:0 1px 4px rgba(11,17,32,.06),0 4px 16px rgba(11,17,32,.04);
+  --sh2:0 4px 24px rgba(11,17,32,.1);
+  --sh3:0 12px 48px rgba(11,17,32,.18);
+  --ff:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
 }
-html,body{min-height:100%;font-family:var(--ff);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
-#topbar{position:sticky;top:0;z-index:200;background:var(--navy);padding:0 16px;height:60px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 20px rgba(12,36,97,.35)}
-.tb-icon{width:36px;height:36px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.tb-text{flex:1;min-width:0}
-.tb-title{font-size:13.5px;font-weight:800;color:#fff;letter-spacing:-.3px}
-.tb-sub{font-size:11px;color:rgba(255,255,255,.5);font-weight:500}
-.tb-clock{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.6);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:5px 11px;border-radius:8px;flex-shrink:0}
-@media(max-width:480px){.tb-clock{display:none}}
-#nav{background:var(--surface);border-bottom:2px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 8px;gap:2px;scrollbar-width:none}
-#nav::-webkit-scrollbar{display:none}
-.ntab{display:flex;align-items:center;gap:6px;padding:13px 16px 11px;font-size:12.5px;font-weight:700;color:var(--text3);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;border-radius:8px 8px 0 0}
-.ntab:hover{color:var(--text2);background:var(--bg)}
-.ntab.active{color:var(--blue);border-bottom-color:var(--blue);background:var(--blue-light)}
-#main{padding:20px 16px 80px;max-width:1200px;margin:0 auto}
-@media(min-width:768px){#main{padding:24px 28px 60px}}
-.panel{display:none}.panel.active{display:block;animation:up .2s ease}
-@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.ph{margin-bottom:20px}
-.ph-title{font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.5px;margin-bottom:3px}
-.ph-desc{font-size:13px;color:var(--text3)}
-.sdiv{display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--text3);margin:28px 0 14px}
-.sdiv::after{content:'';flex:1;height:1.5px;background:var(--border)}
 
-/* STEP FLOW */
-.step-flow{display:flex;flex-direction:column;gap:0}
-.step-item{display:flex;gap:0;position:relative}
-.step-item:not(:last-child) .step-line{position:absolute;left:19px;top:40px;width:2px;height:calc(100% - 8px);background:var(--border2);z-index:0}
-.step-left{display:flex;flex-direction:column;align-items:center;padding-right:16px;flex-shrink:0;padding-top:4px}
-.step-num{width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;box-shadow:0 2px 8px rgba(30,63,170,.3)}
-.step-num.ok{background:#059669}.step-num.info{background:#7c3aed}.step-num.warn{background:#d97706}
-.step-right{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)}
-.step-right:hover{border-color:var(--blue-mid);box-shadow:var(--sh2)}
-.step-right.ok{border-color:#6ee7b7;background:#f0fdf4}
-.step-right.info{border-color:#c4b5fd;background:#faf5ff}
-.step-tag{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-bottom:6px;display:inline-block}
-.step-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:6px}
-.step-body{font-size:12.5px;color:var(--text2);line-height:1.7}
-.step-body strong{color:var(--text);font-weight:700}
-.step-body code{font-family:var(--mono);font-size:11.5px;background:var(--bg);border:1px solid var(--border);padding:1px 6px;border-radius:4px;color:var(--blue)}
-.step-note{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:12px;color:var(--text2);line-height:1.55;background:var(--bg);border:1px solid var(--border)}
-.step-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.chip{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:var(--ink);font-size:14px;line-height:1.5}
 
-/* MINI STEPS */
-.mini-steps{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.ms{display:flex;align-items:flex-start;gap:10px;background:rgba(30,63,170,.05);border-radius:8px;padding:8px 12px;border:1px solid var(--blue-mid)}
-.ms-num{width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.ms-txt{font-size:12px;color:var(--text2);line-height:1.5}
-.ms-txt strong{color:var(--text);font-weight:700}
+/* ══ TOPBAR ══ */
+#topbar{
+  position:sticky;top:0;z-index:300;
+  background:var(--navy);
+  padding:0 20px;height:58px;
+  display:flex;align-items:center;gap:14px;
+  box-shadow:0 2px 24px rgba(12,36,97,.5);
+}
+.tb-logo{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--gold),#e8b84b);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:17px;flex-shrink:0;box-shadow:0 2px 8px rgba(200,151,42,.4);
+}
+.tb-info{flex:1;min-width:0}
+.tb-title{font-size:13.5px;font-weight:800;color:#fff;letter-spacing:-.3px;line-height:1.2}
+.tb-sub{font-size:10.5px;color:rgba(255,255,255,.45);font-weight:500}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-clock{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.55);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:5px 12px;border-radius:8px}
+.tb-date{font-size:11px;color:rgba(255,255,255,.4);font-weight:500}
+@media(max-width:500px){.tb-date,.tb-clock{display:none}}
 
-/* RESPONSE CARDS */
-.rcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-@media(max-width:600px){.rcard-grid{grid-template-columns:1fr}}
-.rcard{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--sh);transition:box-shadow .2s,transform .15s}
-.rcard:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
-.rcard-hd{padding:14px 16px 12px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--border)}
-.rcard-emoji{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
-.rcard-meta{flex:1;min-width:0}
-.rcard-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:3px}
-.rcard-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 9px;border-radius:20px}
-.rcard-body{padding:13px 16px}
-.rcard-text{font-size:12.5px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:200px;overflow-y:auto}
-.rcard-text::-webkit-scrollbar{width:3px}
-.rcard-text::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
-.rcard-ft{padding:10px 16px 14px;display:flex;gap:8px;border-top:1px solid var(--border)}
-.rbtn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-family:var(--ff);font-size:12px;font-weight:700;transition:all .15s}
-.rbtn svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.rbtn-copy{background:var(--blue-light);color:var(--blue)}.rbtn-copy:hover{background:var(--blue-mid)}
-.rbtn-copy.copied{background:var(--green-bg);color:var(--green)}
-.rbtn-expand{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}.rbtn-expand:hover{background:var(--bg)}
+/* ══ QUICK ACCESS BAR ══ */
+#qabar{
+  background:var(--surface);border-bottom:2px solid var(--border);
+  padding:12px 20px;
+  display:flex;align-items:center;gap:8px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+#qabar::-webkit-scrollbar{display:none}
+.qabtn{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 16px;border-radius:10px;
+  border:1.5px solid var(--border);background:var(--surface2);
+  font-family:var(--ff);font-size:12px;font-weight:700;color:var(--ink2);
+  cursor:pointer;white-space:nowrap;transition:all .15s;
+  text-decoration:none;
+}
+.qabtn:hover{border-color:var(--blue-m);background:var(--blue-l);color:var(--blue)}
+.qabtn.active{border-color:var(--blue);background:var(--blue);color:#fff;box-shadow:0 2px 12px rgba(26,63,191,.3)}
+.qabtn .qico{font-size:14px}
+.qa-sep{width:1px;height:30px;background:var(--border);flex-shrink:0;margin:0 4px}
 
-/* INFO CARD */
-.icard{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:var(--sh);margin-bottom:14px}
-.icard-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:9px}
-.irow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+/* ══ LAYOUT ══ */
+#wrap{max-width:1280px;margin:0 auto;padding:24px 20px 80px}
+@media(min-width:900px){#wrap{padding:28px 32px 60px}}
+
+/* ══ PANEL HEADER ══ */
+.phead{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:16px;margin-bottom:24px;flex-wrap:wrap;
+}
+.ph-left{}
+.ph-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;margin-bottom:8px;
+  background:var(--blue-l);color:var(--blue);
+}
+.ph-title{font-size:24px;font-weight:900;color:var(--navy);letter-spacing:-.6px;line-height:1.15;margin-bottom:5px}
+.ph-desc{font-size:13px;color:var(--ink3);max-width:600px;line-height:1.6}
+
+/* ══ PANELS ══ */
+.panel{display:none}
+.panel.active{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ══ SECTION DIVIDER ══ */
+.sdiv{
+  display:flex;align-items:center;gap:10px;
+  font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--ink4);margin:32px 0 16px;
+}
+.sdiv::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ══ ALERT BOX ══ */
+.alert{
+  display:flex;align-items:flex-start;gap:14px;
+  border-radius:var(--r2);padding:16px 20px;margin-bottom:20px;
+  border:1.5px solid;
+}
+.alert-icon{font-size:22px;flex-shrink:0;line-height:1}
+.alert-content{}
+.alert-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.alert-text{font-size:12.5px;line-height:1.6}
+.alert-blue{background:var(--blue-l);border-color:var(--blue-m)}.alert-blue .alert-title{color:var(--blue)}.alert-blue .alert-text{color:#2d3a8c}
+.alert-red{background:var(--red-l);border-color:#fca5a5}.alert-red .alert-title{color:var(--red)}.alert-red .alert-text{color:#7f1d1d}
+.alert-amber{background:var(--amber-l);border-color:#fcd34d}.alert-amber .alert-title{color:var(--amber)}.alert-amber .alert-text{color:#78350f}
+.alert-green{background:var(--green-l);border-color:var(--green-m)}.alert-green .alert-title{color:var(--green)}.alert-green .alert-text{color:#064e3b}
+
+/* ══ STEP FLOW ══ */
+.stepflow{display:flex;flex-direction:column}
+.sitem{display:flex;gap:0;position:relative}
+.sitem:not(:last-child) .sline{position:absolute;left:19px;top:42px;width:2px;height:calc(100% - 10px);background:linear-gradient(180deg,var(--blue-m),var(--border));z-index:0}
+.sleft{display:flex;flex-direction:column;align-items:center;padding-right:16px;flex-shrink:0;padding-top:4px}
+.snum{width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;box-shadow:0 2px 12px rgba(26,63,191,.3)}
+.snum.ok{background:var(--green);box-shadow:0 2px 12px rgba(10,102,64,.3)}
+.snum.info{background:var(--purple);box-shadow:0 2px 12px rgba(76,29,149,.3)}
+.sright{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);padding:16px 20px;margin-bottom:14px;box-shadow:var(--sh);transition:all .2s}
+.sright:hover{border-color:var(--blue-m);box-shadow:var(--sh2);transform:translateY(-1px)}
+.sright.ok{border-color:var(--green-m);background:#f8fffc}
+.sright.info{border-color:#c4b5fd;background:#fdf8ff}
+.stag{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block}
+.stag-blue{background:var(--blue-l);color:var(--blue)}
+.stag-green{background:var(--green-l);color:var(--green)}
+.stag-amber{background:var(--amber-l);color:var(--amber)}
+.stag-purple{background:var(--purple-l);color:var(--purple)}
+.stag-teal{background:var(--teal-l);color:var(--teal)}
+.stag-red{background:var(--red-l);color:var(--red)}
+.stitle{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.sbody{font-size:12.5px;color:var(--ink2);line-height:1.75}
+.sbody strong{color:var(--ink);font-weight:700}
+.sbody code{font-family:var(--mono);font-size:11.5px;background:var(--paper);border:1px solid var(--border);padding:2px 7px;border-radius:6px;color:var(--blue)}
+.snote{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:12px;color:var(--ink2);line-height:1.55;background:var(--paper);border:1px solid var(--border)}
+.ministeps{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.mstep{display:flex;align-items:flex-start;gap:10px;background:rgba(26,63,191,.05);border-radius:10px;padding:10px 14px;border:1px solid var(--blue-m)}
+.mnum{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.mtxt{font-size:12.5px;color:var(--ink2);line-height:1.55}
+.mtxt strong{color:var(--ink);font-weight:700}
+
+/* ══ SMART FORM (Response Generator) ══ */
+.smartcard{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh);
+  margin-bottom:16px;
+}
+.sc-head{
+  padding:16px 20px 14px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.sc-ico{
+  width:42px;height:42px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  flex-shrink:0;
+}
+.sc-meta{flex:1;min-width:0}
+.sc-title{font-size:14px;font-weight:800;color:var(--ink)}
+.sc-desc{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.sc-badge{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.sc-toggle{
+  width:34px;height:34px;border-radius:9px;
+  border:1.5px solid var(--border);background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .15s;font-size:14px;
+  flex-shrink:0;
+}
+.sc-toggle:hover{background:var(--blue-l);border-color:var(--blue-m)}
+.sc-fields{padding:18px 20px;background:var(--surface2)}
+.sc-fields.hidden{display:none}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:600px){.frow{grid-template-columns:1fr}}
+.frow.single{grid-template-columns:1fr}
+.fgroup{display:flex;flex-direction:column;gap:5px}
+.fgroup label{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.3px}
+.fgroup input,.fgroup select,.fgroup textarea{
+  width:100%;padding:9px 12px;
+  border:1.5px solid var(--border);border-radius:10px;
+  font-family:var(--ff);font-size:13px;color:var(--ink);background:var(--surface);
+  transition:border-color .15s,box-shadow .15s;
+  outline:none;
+}
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,63,191,.1);
+}
+.fgroup textarea{min-height:90px;resize:vertical;line-height:1.6}
+.sc-preview{padding:18px 20px;border-top:1px solid var(--border)}
+.preview-label{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--ink4);margin-bottom:10px}
+.preview-box{
+  background:var(--paper);border:1.5px solid var(--border);
+  border-radius:var(--r);padding:16px 18px;
+  font-size:12.5px;color:var(--ink2);line-height:1.85;
+  white-space:pre-wrap;word-break:break-word;
+  max-height:260px;overflow-y:auto;
+  font-family:var(--mono);
+}
+.preview-box::-webkit-scrollbar{width:4px}
+.preview-box::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.preview-box mark{background:rgba(200,151,42,.25);color:var(--amber);border-radius:3px;padding:0 2px}
+.sc-actions{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 18px;border-radius:10px;border:none;
+  font-family:var(--ff);font-size:12.5px;font-weight:700;
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 2px 12px rgba(26,63,191,.25)}
+.btn-primary:hover{background:#1535a0;transform:translateY(-1px);box-shadow:0 4px 16px rgba(26,63,191,.35)}
+.btn-primary:active{transform:none}
+.btn-success{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(10,102,64,.2)}
+.btn-success:hover{background:#085234}
+.btn-ghost{background:var(--surface2);color:var(--ink2);border:1.5px solid var(--border)}
+.btn-ghost:hover{background:var(--paper);border-color:var(--border2)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#e8b84b);color:#fff;box-shadow:0 2px 12px rgba(200,151,42,.3)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(200,151,42,.4)}
+.btn.copied{background:var(--green);color:#fff}
+
+/* ══ INFO CARD ══ */
+.icard{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);padding:20px 22px;box-shadow:var(--sh);margin-bottom:16px;
+}
+.icard-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.irow{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .irow:last-child{border-bottom:none;padding-bottom:0}
 .idot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.itext{font-size:13px;color:var(--text2);line-height:1.55}
-.itext strong{color:var(--text);font-weight:700}
+.itext{font-size:13px;color:var(--ink2);line-height:1.6}
+.itext strong{color:var(--ink);font-weight:700}
 
-/* ALERT */
-.alert{display:flex;align-items:flex-start;gap:12px;border-radius:12px;padding:14px 16px;margin-bottom:18px}
-.alert-icon{font-size:20px;flex-shrink:0;margin-top:1px}
-.alert-title{font-size:13px;font-weight:800;margin-bottom:3px}
-.alert-text{font-size:12.5px;line-height:1.55}
-.alert-red{background:#fff1f2;border:1.5px solid #fca5a5}.alert-red .alert-title{color:#be123c}.alert-red .alert-text{color:#9f1239}
-.alert-amber{background:#fffbeb;border:1.5px solid #fde68a}.alert-amber .alert-title{color:#d97706}.alert-amber .alert-text{color:#92400e}
-.alert-blue{background:var(--blue-light);border:1.5px solid var(--blue-mid)}.alert-blue .alert-title{color:var(--blue)}.alert-blue .alert-text{color:var(--indigo)}
-.alert-green{background:#f0fdf4;border:1.5px solid #86efac}.alert-green .alert-title{color:#166534}.alert-green .alert-text{color:#14532d}
+/* ══ CHECKLIST ══ */
+.checklist-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh);margin-bottom:16px;
+}
+.cl-head{
+  padding:16px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.cl-title{font-size:14px;font-weight:800;color:var(--ink)}
+.cl-progress{display:flex;align-items:center;gap:8px}
+.cl-bar-wrap{width:100px;height:6px;background:var(--border);border-radius:10px;overflow:hidden}
+.cl-bar{height:100%;background:linear-gradient(90deg,var(--blue),#4f78ff);border-radius:10px;transition:width .4s cubic-bezier(.34,1.56,.64,1)}
+.cl-pct{font-size:11px;font-weight:800;color:var(--blue);font-family:var(--mono)}
+.cl-items{padding:8px 0}
+.cl-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:12px 20px;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .1s;
+  user-select:none;
+}
+.cl-item:last-child{border-bottom:none}
+.cl-item:hover{background:var(--surface2)}
+.cl-item.done .cl-text{text-decoration:line-through;color:var(--ink4)}
+.cl-item.done .cl-check{background:var(--green);border-color:var(--green)}
+.cl-check{
+  width:20px;height:20px;border-radius:6px;border:2px solid var(--border2);
+  background:var(--surface);flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+.cl-check svg{width:10px;height:10px;stroke:#fff;stroke-width:3;fill:none;display:none}
+.cl-item.done .cl-check svg{display:block}
+.cl-text{font-size:13px;color:var(--ink2);line-height:1.55;flex:1}
+.cl-text strong{color:var(--ink);font-weight:700}
+.cl-tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:12px;flex-shrink:0;align-self:flex-start;margin-top:2px}
+.cl-reset{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:9px;border:1.5px solid var(--border);
+  background:var(--surface2);color:var(--ink3);font-family:var(--ff);
+  font-size:11.5px;font-weight:700;cursor:pointer;transition:all .15s;
+}
+.cl-reset:hover{background:var(--red-l);border-color:#fca5a5;color:var(--red)}
+.cl-reset svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-/* EMAIL CARDS */
-.email-section{margin-bottom:24px}
-.email-section-title{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.email-section-title::after{content:'';flex:1;height:1.5px;background:var(--border)}
-.email-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
-@media(max-width:600px){.email-grid{grid-template-columns:1fr}}
+/* ══ HISTORY ══ */
+.hist-wrap{display:flex;flex-direction:column;gap:10px}
+.hist-empty{
+  text-align:center;padding:40px 20px;
+  background:var(--surface);border:1.5px dashed var(--border2);
+  border-radius:var(--r2);
+}
+.hist-empty .he-ico{font-size:36px;margin-bottom:10px}
+.hist-empty p{font-size:13px;color:var(--ink4);font-weight:500}
+.hitem{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);padding:16px 20px;box-shadow:var(--sh);
+  display:flex;align-items:flex-start;gap:14px;
+  transition:box-shadow .15s,transform .15s;
+}
+.hitem:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.hitem-ico{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  flex-shrink:0;
+}
+.hitem-body{flex:1;min-width:0}
+.hitem-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.hitem-meta{font-size:11.5px;color:var(--ink3);margin-bottom:8px;display:flex;gap:10px;flex-wrap:wrap}
+.hitem-preview{
+  font-size:12px;color:var(--ink3);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-family:var(--mono);background:var(--paper);
+  padding:6px 10px;border-radius:8px;border:1px solid var(--border);
+}
+.hitem-actions{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.hitem-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:800;padding:3px 9px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
+.hdel{
+  width:28px;height:28px;border-radius:7px;border:1.5px solid var(--border);
+  background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.hdel:hover{background:var(--red-l);border-color:#fca5a5}
+.hdel svg{width:12px;height:12px;stroke:var(--ink3);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.hdel:hover svg{stroke:var(--red)}
+
+/* ══ EMAIL CARDS ══ */
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+@media(max-width:600px){.egrid{grid-template-columns:1fr}}
 .ecard{
-  background:var(--surface);border:1.5px solid var(--border);border-radius:12px;
-  padding:14px 16px;box-shadow:var(--sh);
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);padding:16px 18px;box-shadow:var(--sh);
   display:flex;align-items:flex-start;gap:12px;
   transition:box-shadow .15s,transform .15s;
 }
 .ecard:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
-.ecard.mag{border-color:#c7d2fe;background:#fafbff}
-.ecard-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.ecard-body{flex:1;min-width:0}
-.ecard-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
-.ecard-role{font-size:11px;color:var(--text3);font-weight:500;margin-bottom:7px}
-.ecard-email{font-family:var(--mono);font-size:11.5px;color:var(--blue);font-weight:500;word-break:break-all;margin-bottom:8px}
-.ecard-actions{display:flex;gap:6px;flex-wrap:wrap}
+.ecard.mag{border-color:#c4b5fd;background:#fdfbff}
+.eico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ebody{flex:1;min-width:0}
+.ename{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.erole{font-size:11px;color:var(--ink3);font-weight:500;margin-bottom:6px}
+.email-addr{font-family:var(--mono);font-size:11.5px;color:var(--blue);font-weight:500;word-break:break-all;margin-bottom:8px}
+.eacts{display:flex;gap:6px;flex-wrap:wrap}
 .eact{
   display:flex;align-items:center;gap:5px;
-  padding:5px 11px;border-radius:7px;border:none;cursor:pointer;
+  padding:6px 12px;border-radius:8px;border:none;cursor:pointer;
   font-family:var(--ff);font-size:11.5px;font-weight:700;
   transition:all .15s;text-decoration:none;
 }
 .eact svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .eact-mail{background:#dbeafe;color:#1e40af}.eact-mail:hover{background:#bfdbfe}
-.eact-copy{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}.eact-copy:hover{background:var(--bg)}
-.eact-copy.copied{background:var(--green-bg);color:var(--green);border-color:#6ee7b7}
+.eact-copy{background:var(--surface2);color:var(--ink2);border:1px solid var(--border)}.eact-copy:hover{background:var(--paper)}
+.eact-copy.copied{background:var(--green-l);color:var(--green);border-color:var(--green-m)}
 
-/* MODAL */
-#moverlay{position:fixed;inset:0;background:rgba(10,22,40,.55);backdrop-filter:blur(5px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
-#moverlay.open{display:flex;animation:fi .15s ease}
+/* ══ MODAL ══ */
+#overlay{
+  position:fixed;inset:0;
+  background:rgba(11,17,32,.6);backdrop-filter:blur(6px);
+  z-index:500;display:none;align-items:center;justify-content:center;padding:16px;
+}
+#overlay.open{display:flex;animation:fi .15s ease}
 @keyframes fi{from{opacity:0}to{opacity:1}}
-#modal{background:var(--surface);border-radius:18px;width:100%;max-width:640px;max-height:90vh;box-shadow:var(--sh3);display:flex;flex-direction:column;animation:su .2s cubic-bezier(.34,1.56,.64,1)}
-@keyframes su{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-#m-hd{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
-#m-emoji{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--blue-light)}
-#m-title{font-size:16px;font-weight:800;color:var(--text);flex:1}
-#m-close{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
-#m-close:hover{background:var(--bg)}
-#m-close svg{width:14px;height:14px;stroke:var(--text3);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-#m-body{padding:22px 24px;overflow-y:auto;flex:1}
-#m-text{font-size:13.5px;color:var(--text2);line-height:1.75;white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:18px 20px}
-#m-ft{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
-.mbtn-sec{background:var(--surface2);color:var(--text2);padding:10px 18px;border-radius:9px;border:1.5px solid var(--border);font-family:var(--ff);font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
-.mbtn-sec:hover{background:var(--bg)}
-.mbtn-pri{background:var(--blue);color:#fff;padding:10px 22px;border-radius:9px;border:none;font-family:var(--ff);font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s,transform .1s}
-.mbtn-pri:hover{background:#1535a0}.mbtn-pri:active{transform:scale(.97)}
-.mbtn-pri svg{width:14px;height:14px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy);border-radius:12px;padding:11px 22px;font-size:13px;font-weight:700;color:#fff;opacity:0;transition:all .22s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:999;white-space:nowrap;box-shadow:var(--sh3);display:flex;align-items:center;gap:9px}
+#modal{
+  background:var(--surface);border-radius:24px;
+  width:100%;max-width:660px;max-height:88vh;
+  box-shadow:var(--sh3);display:flex;flex-direction:column;
+  animation:su .22s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes su{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+#m-hd{padding:22px 26px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+#m-ico{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;background:var(--blue-l)}
+#m-title{font-size:17px;font-weight:900;color:var(--ink);flex:1;letter-spacing:-.3px}
+#m-close{
+  width:34px;height:34px;border-radius:9px;
+  border:1.5px solid var(--border);background:var(--surface2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;
+}
+#m-close:hover{background:var(--red-l)}
+#m-close svg{width:14px;height:14px;stroke:var(--ink3);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#m-body{padding:24px 26px;overflow-y:auto;flex:1}
+#m-text{
+  font-size:13.5px;color:var(--ink2);line-height:1.85;
+  white-space:pre-wrap;word-break:break-word;
+  background:var(--paper);border:1.5px solid var(--border);
+  border-radius:var(--r2);padding:20px 22px;
+  font-family:var(--mono);
+}
+#m-ft{padding:18px 26px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+/* ══ TOAST ══ */
+#toast{
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:var(--navy);border-radius:14px;
+  padding:12px 24px;font-size:13px;font-weight:700;color:#fff;
+  opacity:0;transition:all .25s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;z-index:999;white-space:nowrap;
+  box-shadow:var(--sh3);display:flex;align-items:center;gap:10px;
+}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast svg{width:15px;height:15px;stroke:#4ade80;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.c-blue{background:var(--blue-light);color:var(--blue)}.c-green{background:var(--green-bg);color:var(--green)}
-.c-amber{background:var(--amber-bg);color:var(--amber)}.c-red{background:var(--red-bg);color:var(--red)}
-.c-purple{background:var(--purple-bg);color:var(--purple)}.c-teal{background:var(--teal-bg);color:var(--teal)}
-.c-indigo{background:var(--indigo-bg);color:var(--indigo)}.c-orange{background:var(--orange-bg);color:var(--orange)}
-.tag-blue{background:var(--blue-light);color:var(--blue)}.tag-green{background:var(--green-bg);color:var(--green)}
-.tag-amber{background:var(--amber-bg);color:var(--amber)}.tag-red{background:var(--red-bg);color:var(--red)}
-.tag-purple{background:var(--purple-bg);color:var(--purple)}.tag-teal{background:var(--teal-bg);color:var(--teal)}
-.tag-indigo{background:var(--indigo-bg);color:var(--indigo)}
+
+/* ══ CHIPS ══ */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px}
+.chip-blue{background:var(--blue-l);color:var(--blue)}
+.chip-green{background:var(--green-l);color:var(--green)}
+.chip-gold{background:var(--gold-light);color:var(--gold)}
+
+/* ══ CRITERIA GRID ══ */
+.criteria-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:640px){.criteria-grid{grid-template-columns:1fr}}
+.crit-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);padding:20px;box-shadow:var(--sh);
+}
+.crit-card.yes{border-color:var(--green-m)}
+.crit-card.no{border-color:#fca5a5}
+.crit-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.crit-icon{font-size:22px}
+.crit-label{font-size:13px;font-weight:800;color:var(--ink)}
+.crit-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.crit-item:last-child{border-bottom:none;padding-bottom:0}
+.cdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.crit-text{font-size:12.5px;color:var(--ink2);line-height:1.55}
+
+/* ══ STATS BAR ══ */
+#statsbar{
+  background:linear-gradient(135deg,var(--navy) 0%,#1a3fbf 100%);
+  border-radius:var(--r2);padding:18px 24px;margin-bottom:24px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  box-shadow:0 4px 24px rgba(12,36,97,.25);
+}
+.stat-item{display:flex;flex-direction:column;gap:3px}
+.stat-val{font-size:22px;font-weight:900;color:#fff;font-family:var(--mono);letter-spacing:-.5px}
+.stat-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.3px}
+.stat-sep{width:1px;height:40px;background:rgba(255,255,255,.15);flex-shrink:0}
+.stat-gold .stat-val{color:var(--gold-mid)}
+
+/* ══ ESTILOS UTILS ══ */
+.esec-title{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.esec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.esec{margin-bottom:24px}
 </style>
 </head>
 <body>
+
+<!-- TOPBAR -->
 <div id="topbar">
-  <div class="tb-icon">⚖️</div>
-  <div class="tb-text">
-    <div class="tb-title">Demandas do Fórum — OAB Santana de Parnaíba</div>
-    <div class="tb-sub">Painel operacional · Convênio DPESP-OAB</div>
+  <div class="tb-logo">⚖️</div>
+  <div class="tb-info">
+    <div class="tb-title">Painel Fórum — OAB Santana de Parnaíba</div>
+    <div class="tb-sub">Convênio DPESP/OAB-SP · Sistema operacional</div>
   </div>
-  <div class="tb-clock" id="clock">--:--:--</div>
+  <div class="tb-right">
+    <div class="tb-date" id="tbdate"></div>
+    <div class="tb-clock" id="clock">--:--:--</div>
+  </div>
 </div>
 
-<div id="nav">
-  <div class="ntab active" onclick="sw('nomeacao')" data-tab="nomeacao"><span>📋</span> Nomeação — Vítima Especial</div>
-  <div class="ntab" onclick="sw('respostas')" data-tab="respostas"><span>💬</span> Respostas ao Fórum</div>
-  <div class="ntab" onclick="sw('curador')" data-tab="curador"><span>👤</span> Curador Especial</div>
-  <div class="ntab" onclick="sw('avaliacao')" data-tab="avaliacao"><span>🗂️</span> Avaliação Financeira</div>
-  <div class="ntab" onclick="sw('emails')" data-tab="emails"><span>📧</span> E-mails UPJ Cível</div>
-  <div class="ntab" onclick="sw('criterios')" data-tab="criterios"><span>📌</span> Critérios e Regras</div>
+<!-- QUICK ACCESS BAR -->
+<div id="qabar">
+  <button class="qabtn active" onclick="sw('nomeacao')" data-tab="nomeacao"><span class="qico">📋</span> Nomeação</button>
+  <button class="qabtn" onclick="sw('respostas')" data-tab="respostas"><span class="qico">💬</span> Gerar Resposta</button>
+  <button class="qabtn" onclick="sw('curador')" data-tab="curador"><span class="qico">👤</span> Curador Especial</button>
+  <button class="qabtn" onclick="sw('avaliacao')" data-tab="avaliacao"><span class="qico">🗂️</span> Av. Financeira</button>
+  <div class="qa-sep"></div>
+  <button class="qabtn" onclick="sw('historico')" data-tab="historico"><span class="qico">🕐</span> Histórico <span id="hist-count-badge" style="display:none;background:var(--blue);color:#fff;border-radius:20px;padding:1px 7px;font-size:10px;font-weight:800"></span></button>
+  <button class="qabtn" onclick="sw('emails')" data-tab="emails"><span class="qico">📧</span> E-mails UPJ</button>
+  <button class="qabtn" onclick="sw('criterios')" data-tab="criterios"><span class="qico">📌</span> Critérios</button>
 </div>
 
-<div id="main">
+<div id="wrap">
 
-  <!-- ══ ABA 1 — NOMEAÇÃO ══ -->
+  <!-- ══ STATS BAR ══ -->
+  <div id="statsbar">
+    <div class="stat-item">
+      <div class="stat-val" id="stat-hoje">0</div>
+      <div class="stat-label">Respostas Hoje</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <div class="stat-val" id="stat-total">0</div>
+      <div class="stat-label">Total no Histórico</div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item stat-gold">
+      <div class="stat-val" id="stat-tipo">—</div>
+      <div class="stat-label">Tipo Mais Usado</div>
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn btn-gold" onclick="sw('respostas')">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Gerar Resposta Agora
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ABA 1 — NOMEAÇÃO -->
+  <!-- ══════════════════════════════ -->
   <div class="panel active" id="panel-nomeacao">
-    <div class="ph">
-      <div class="ph-title">Nomeação — Depoimento Especial da Vítima</div>
-      <div class="ph-desc">Tutorial no sistema DOL para indicar advogado conveniado ao ato do depoimento especial de criança/adolescente vítima de violência (Lei 13.431/17).</div>
+    <div class="phead">
+      <div class="ph-left">
+        <div class="ph-badge">📋 Tutorial DOL</div>
+        <div class="ph-title">Nomeação — Depoimento Especial</div>
+        <div class="ph-desc">Passo a passo completo para indicar advogado conveniado no sistema DOL para o ato do depoimento especial de criança/adolescente vítima de violência (Lei 13.431/17).</div>
+      </div>
     </div>
 
     <div class="alert alert-blue">
       <div class="alert-icon">✅</div>
-      <div>
+      <div class="alert-content">
         <div class="alert-title">Presunção de vulnerabilidade — não exige avaliação financeira</div>
-        <div class="alert-text">Vítima de violência (Lei 13.431/17) · Acolhidos institucionalmente · Em cumprimento de internação · Necessidade de proteção de identidade de gênero com oposição dos responsáveis. Nestes casos, a indicação ocorre <strong>independentemente de avaliação financeira</strong> e da presença de responsável.</div>
+        <div class="alert-text">Vítima de violência (Lei 13.431/17) · Acolhidos institucionalmente · Em cumprimento de internação · Proteção de identidade de gênero com oposição dos responsáveis. Nestes casos a indicação ocorre <strong>independentemente de avaliação financeira</strong> e da presença de responsável.</div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST RÁPIDO -->
+    <div class="sdiv">Checklist — antes de iniciar</div>
+    <div class="checklist-card" id="cl-nomeacao">
+      <div class="cl-head">
+        <div class="cl-title">✅ Verifique antes de abrir o DOL</div>
+        <div class="cl-progress">
+          <div class="cl-bar-wrap"><div class="cl-bar" id="bar-nom" style="width:0%"></div></div>
+          <div class="cl-pct" id="pct-nom">0%</div>
+        </div>
+        <button class="cl-reset" onclick="resetChecklist('nom')"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.3"/></svg> Resetar</button>
+      </div>
+      <div class="cl-items" id="items-nom">
+        <div class="cl-item" onclick="toggleCheck(this,'nom')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Tenho o <strong>ofício/despacho do juiz</strong> solicitando a nomeação</div><span class="cl-tag chip-blue chip">Obrigatório</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'nom')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Confirmei que se trata de <strong>vítima de violência (Lei 13.431/17)</strong> ou caso com presunção de vulnerabilidade</div><span class="cl-tag chip-blue chip">Obrigatório</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'nom')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Tenho o <strong>número completo do processo</strong> (formato: 0000000-00.0000.0.00.0000)</div><span class="cl-tag chip-blue chip">Obrigatório</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'nom')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Tenho <strong>CPF, nome ou nº de identificação DPESP</strong> da vítima para localizar no sistema</div><span class="cl-tag chip-blue chip">Obrigatório</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'nom')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Tenho o <strong>nº OAB</strong> do advogado da triagem para validação</div><span class="cl-tag chip-gold chip">Necessário</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'nom')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Documentos da audiência prontos para <strong>anexar no sistema</strong></div><span class="cl-tag chip-gold chip">Quando houver</span></div>
       </div>
     </div>
 
     <div class="sdiv">Passo a passo no sistema DOL</div>
-    <div class="step-flow">
-
-      <div class="step-item">
-        <div class="step-line"></div>
-        <div class="step-left"><div class="step-num">1</div></div>
-        <div class="step-right">
-          <div class="step-tag tag-blue">Acesso</div>
-          <div class="step-title">Localizar o Usuário no Sistema</div>
-          <div class="step-body">No DOL, clique em <strong>Cadastro</strong> → pesquise pelo <strong>CPF</strong>, nome ou pelo <strong>Número de Identificação DPESP</strong> constante no ofício.<br><br>Nos resultados, clique na <strong>seta ( › ) à direita</strong> para entrar no cadastro do usuário.</div>
-          <div class="step-note">💡 O número de identificação DPESP é o mais indicado — evita confusão com cadastros duplicados.</div>
+    <div class="stepflow">
+      <div class="sitem">
+        <div class="sline"></div><div class="sleft"><div class="snum">1</div></div>
+        <div class="sright">
+          <div class="stag stag-blue">Acesso</div>
+          <div class="stitle">Localizar o Usuário no Sistema</div>
+          <div class="sbody">No DOL, clique em <strong>Cadastro</strong> → pesquise pelo <strong>CPF</strong>, nome ou pelo <strong>Número de Identificação DPESP</strong> constante no ofício.<br><br>Nos resultados, clique na <strong>seta ( › ) à direita</strong> para entrar no cadastro do usuário.</div>
+          <div class="snote">💡 O número de identificação DPESP é o mais indicado — evita confusão com cadastros duplicados.</div>
         </div>
       </div>
-
-      <div class="step-item">
-        <div class="step-line"></div>
-        <div class="step-left"><div class="step-num">2</div></div>
-        <div class="step-right">
-          <div class="step-tag tag-indigo">Histórico</div>
-          <div class="step-title">Acessar "Histórico DPESP" → "Inserir novo problema"</div>
-          <div class="step-body">Dentro do cadastro, clique na aba <strong>"Histórico DPESP"</strong>. Em seguida clique em <strong>"Inserir novo problema"</strong> e preencha:
-          <div class="mini-steps">
-            <div class="ms"><div class="ms-num">A</div><div class="ms-txt"><strong>Área de atuação:</strong> <code>Criminal — Criminal (Vara Singular)</code></div></div>
-            <div class="ms"><div class="ms-num">B</div><div class="ms-txt"><strong>Problema:</strong> <code>Depoimento Especial da Vítima</code></div></div>
-          </div>
-          </div>
+      <div class="sitem">
+        <div class="sline"></div><div class="sleft"><div class="snum">2</div></div>
+        <div class="sright">
+          <div class="stag stag-purple">Histórico</div>
+          <div class="stitle">Acessar "Histórico DPESP" → "Inserir novo problema"</div>
+          <div class="sbody">Dentro do cadastro, clique na aba <strong>"Histórico DPESP"</strong>. Em seguida clique em <strong>"Inserir novo problema"</strong> e preencha:
+          <div class="ministeps">
+            <div class="mstep"><div class="mnum">A</div><div class="mtxt"><strong>Área de atuação:</strong> <code>Criminal — Criminal (Vara Singular)</code></div></div>
+            <div class="mstep"><div class="mnum">B</div><div class="mtxt"><strong>Problema:</strong> <code>Depoimento Especial da Vítima</code></div></div>
+          </div></div>
         </div>
       </div>
-
-      <div class="step-item">
-        <div class="step-line"></div>
-        <div class="step-left"><div class="step-num">3</div></div>
-        <div class="step-right">
-          <div class="step-tag tag-amber">Envolvidos</div>
-          <div class="step-title">Incluir a Vítima como Envolvida</div>
-          <div class="step-body">Clique no ícone de <strong>pessoas</strong> (centro da tela) para adicionar envolvido. Configure:
-          <div class="mini-steps">
-            <div class="ms"><div class="ms-num">A</div><div class="ms-txt"><strong>Posição:</strong> <code>Autor/a</code></div></div>
-            <div class="ms"><div class="ms-num">B</div><div class="ms-txt">Marque <strong>"Usuário"</strong> e <strong>"Representado pela Defensoria"</strong></div></div>
-            <div class="ms"><div class="ms-num">C</div><div class="ms-txt">Clique em <strong>"Salvar"</strong> — para mais réus use "Inserir novo envolvido". Ao terminar: <strong>"Fechar janela"</strong></div></div>
-          </div>
-          </div>
+      <div class="sitem">
+        <div class="sline"></div><div class="sleft"><div class="snum">3</div></div>
+        <div class="sright">
+          <div class="stag stag-amber">Envolvidos</div>
+          <div class="stitle">Incluir a Vítima como Envolvida</div>
+          <div class="sbody">Clique no ícone de <strong>pessoas</strong> (centro da tela) para adicionar envolvido. Configure:
+          <div class="ministeps">
+            <div class="mstep"><div class="mnum">A</div><div class="mtxt"><strong>Posição:</strong> <code>Autor/a</code></div></div>
+            <div class="mstep"><div class="mnum">B</div><div class="mtxt">Marque <strong>"Usuário"</strong> e <strong>"Representado pela Defensoria"</strong></div></div>
+            <div class="mstep"><div class="mnum">C</div><div class="mtxt">Clique em <strong>"Salvar"</strong> — para mais réus use "Inserir novo envolvido". Ao terminar: <strong>"Fechar janela"</strong></div></div>
+          </div></div>
         </div>
       </div>
-
-      <div class="step-item">
-        <div class="step-line"></div>
-        <div class="step-left"><div class="step-num ok">4</div></div>
-        <div class="step-right ok">
-          <div class="step-tag tag-green">Convênio OAB</div>
-          <div class="step-title">Selecionar "Convênio OAB" e Salvar</div>
-          <div class="step-body">Em <strong>Encaminhamento</strong>, marque <strong>"Convênio OAB"</strong>.<br>Informe e valide o <strong>nº OAB</strong> do advogado da triagem. Preencha <strong>"Responsável conveniado"</strong> e clique em <strong>"Salvar"</strong>.</div>
+      <div class="sitem">
+        <div class="sline"></div><div class="sleft"><div class="snum ok">4</div></div>
+        <div class="sright ok">
+          <div class="stag stag-green">Convênio OAB</div>
+          <div class="stitle">Selecionar "Convênio OAB" e Salvar</div>
+          <div class="sbody">Em <strong>Encaminhamento</strong>, marque <strong>"Convênio OAB"</strong>.<br>Informe e valide o <strong>nº OAB</strong> do advogado da triagem. Preencha <strong>"Responsável conveniado"</strong> e clique em <strong>"Salvar"</strong>.</div>
         </div>
       </div>
-
-      <div class="step-item">
-        <div class="step-line"></div>
-        <div class="step-left"><div class="step-num ok">5</div></div>
-        <div class="step-right ok">
-          <div class="step-tag tag-green">Encaminhamento DPESP-OAB</div>
-          <div class="step-title">Finalizar na aba "Encaminhamento DPESP-OAB"</div>
-          <div class="step-body">Preencha:
-          <div class="mini-steps">
-            <div class="ms"><div class="ms-num">A</div><div class="ms-txt"><strong>Número do processo</strong> (formato: 0000000-00.0000.0.00.0000)</div></div>
-            <div class="ms"><div class="ms-num">B</div><div class="ms-txt"><strong>Instância / Comarca / Foro / Vara</strong></div></div>
-            <div class="ms"><div class="ms-num">C</div><div class="ms-txt"><strong>Justificativa:</strong> Ex.: "Vítima em situação de acolhimento institucional."</div></div>
-            <div class="ms"><div class="ms-num">D</div><div class="ms-txt">Anexe: <strong>despacho/ofício do juiz</strong> e <strong>documentos da audiência</strong> (quando houver)</div></div>
+      <div class="sitem">
+        <div class="sline"></div><div class="sleft"><div class="snum ok">5</div></div>
+        <div class="sright ok">
+          <div class="stag stag-green">Encaminhamento</div>
+          <div class="stitle">Finalizar na aba "Encaminhamento DPESP-OAB"</div>
+          <div class="sbody">Preencha:
+          <div class="ministeps">
+            <div class="mstep"><div class="mnum">A</div><div class="mtxt"><strong>Número do processo</strong> (formato: 0000000-00.0000.0.00.0000)</div></div>
+            <div class="mstep"><div class="mnum">B</div><div class="mtxt"><strong>Instância / Comarca / Foro / Vara</strong></div></div>
+            <div class="mstep"><div class="mnum">C</div><div class="mtxt"><strong>Justificativa:</strong> Ex.: "Vítima em situação de acolhimento institucional."</div></div>
+            <div class="mstep"><div class="mnum">D</div><div class="mtxt">Anexe: <strong>despacho/ofício do juiz</strong> e <strong>documentos da audiência</strong> (quando houver)</div></div>
           </div>
           Clique em <strong>"Salvar"</strong>. A mensagem <em>"Solicitação encaminhada com sucesso"</em> confirma o envio.</div>
-          <div class="step-note">📧 Após o envio, aguarde a análise da Assessoria de Convênios. Você será notificado por e-mail sobre o deferimento ou indeferimento.</div>
+          <div class="snote">📧 Após o envio, aguarde a análise da Assessoria de Convênios. Você será notificado por e-mail sobre o deferimento ou indeferimento.</div>
         </div>
       </div>
-
-      <div class="step-item">
-        <div class="step-left"><div class="step-num info">6</div></div>
-        <div class="step-right info">
-          <div class="step-tag tag-indigo">Resultado</div>
-          <div class="step-title">Pedido Deferido — Ofício Gerado Automaticamente</div>
-          <div class="step-body">Se deferido, o sistema exibe o <strong>nome e nº OAB</strong> do advogado nomeado e gera o <strong>ofício de indicação</strong> automaticamente para envio ao fórum.<br><br>Se já existir advogado nomeado para o processo, o sistema exibirá aviso — clique em <strong>"Clique aqui"</strong> para consultar os dados.</div>
-          <div class="step-chips">
-            <span class="chip c-indigo">Convênio DPESP/OAB-SP</span>
-            <span class="chip c-blue">Criminal — Vara Singular</span>
-            <span class="chip c-green">Depoimento Especial da Vítima</span>
+      <div class="sitem">
+        <div class="sleft"><div class="snum info">6</div></div>
+        <div class="sright info">
+          <div class="stag stag-purple">Resultado</div>
+          <div class="stitle">Pedido Deferido — Ofício Gerado Automaticamente</div>
+          <div class="sbody">Se deferido, o sistema exibe o <strong>nome e nº OAB</strong> do advogado nomeado e gera o <strong>ofício de indicação</strong> automaticamente para envio ao fórum.<br><br>Se já existir advogado nomeado para o processo, o sistema exibirá aviso — clique em <strong>"Clique aqui"</strong> para consultar os dados.</div>
+          <div class="chips">
+            <span class="chip chip-blue">Convênio DPESP/OAB-SP</span>
+            <span class="chip chip-blue">Criminal — Vara Singular</span>
+            <span class="chip chip-green">Depoimento Especial da Vítima</span>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="sdiv">Contato — Assessoria de Convênios DPESP</div>
@@ -304,57 +618,304 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--bg);color:var(-
     </div>
   </div>
 
-  <!-- ══ ABA 2 — RESPOSTAS ══ -->
+  <!-- ══════════════════════════════ -->
+  <!-- ABA 2 — GERAR RESPOSTA -->
+  <!-- ══════════════════════════════ -->
   <div class="panel" id="panel-respostas">
-    <div class="ph">
-      <div class="ph-title">Respostas ao Fórum</div>
-      <div class="ph-desc">Mensagens institucionais prontas para responder ofícios e demandas do fórum.</div>
+    <div class="phead">
+      <div class="ph-left">
+        <div class="ph-badge">💬 Gerador Inteligente</div>
+        <div class="ph-title">Gerar Resposta ao Fórum</div>
+        <div class="ph-desc">Preencha os campos abaixo e a mensagem é gerada automaticamente, personalizada e pronta para copiar.</div>
+      </div>
     </div>
-    <div class="rcard-grid" id="respostas-grid"></div>
+
+    <!-- CARD 1: Ofício Padrão -->
+    <div id="sc-r1" class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--blue-l)">📄</div>
+        <div class="sc-meta">
+          <div class="sc-title">Resposta Padrão — Ofício Recebido</div>
+          <div class="sc-desc">Para acusar recebimento e prestar informações gerais ao juízo</div>
+        </div>
+        <span class="sc-badge" style="background:var(--blue-l);color:var(--blue)">Geral</span>
+        <button class="sc-toggle" onclick="toggleForm('f-r1')">▼</button>
+      </div>
+      <div class="sc-fields" id="f-r1">
+        <div class="frow">
+          <div class="fgroup"><label>Número do processo (opcional)</label><input type="text" id="r1-proc" placeholder="0000000-00.0000.0.00.0000" oninput="renderMsg('r1')"></div>
+          <div class="fgroup"><label>Nome do(a) assistido(a) (opcional)</label><input type="text" id="r1-nome" placeholder="Nome completo" oninput="renderMsg('r1')"></div>
+        </div>
+        <div class="frow single">
+          <div class="fgroup"><label>Observação adicional (opcional)</label><textarea id="r1-obs" placeholder="Ex.: Encaminhamos as informações solicitadas referentes ao depoimento especial..." oninput="renderMsg('r1')"></textarea></div>
+        </div>
+      </div>
+      <div class="sc-preview">
+        <div class="preview-label">Prévia da mensagem</div>
+        <div class="preview-box" id="prev-r1"></div>
+      </div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('r1')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('r1','Resposta Padrão — Ofício Recebido','📄')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar no Histórico</button>
+      </div>
+    </div>
+
+    <!-- CARD 2: Confirmar Nomeação -->
+    <div id="sc-r2" class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--green-l)">✅</div>
+        <div class="sc-meta">
+          <div class="sc-title">Confirmar Nomeação ao Fórum</div>
+          <div class="sc-desc">Para informar que a indicação de advogado foi realizada com sucesso</div>
+        </div>
+        <span class="sc-badge" style="background:var(--green-l);color:var(--green)">Nomeação</span>
+        <button class="sc-toggle" onclick="toggleForm('f-r2')">▼</button>
+      </div>
+      <div class="sc-fields hidden" id="f-r2">
+        <div class="frow">
+          <div class="fgroup"><label>Número do processo *</label><input type="text" id="r2-proc" placeholder="0000000-00.0000.0.00.0000" oninput="renderMsg('r2')"></div>
+          <div class="fgroup"><label>Nome do(a) advogado(a) nomeado(a)</label><input type="text" id="r2-adv" placeholder="Dr(a). Nome Completo" oninput="renderMsg('r2')"></div>
+        </div>
+        <div class="frow">
+          <div class="fgroup"><label>Nº OAB</label><input type="text" id="r2-oab" placeholder="000.000/SP" oninput="renderMsg('r2')"></div>
+          <div class="fgroup"><label>Data da indicação</label><input type="date" id="r2-data" oninput="renderMsg('r2')"></div>
+        </div>
+      </div>
+      <div class="sc-preview">
+        <div class="preview-label">Prévia da mensagem</div>
+        <div class="preview-box" id="prev-r2"></div>
+      </div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('r2')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('r2','Confirmar Nomeação','✅')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar no Histórico</button>
+      </div>
+    </div>
+
+    <!-- CARD 3: Solicitar Informações -->
+    <div id="sc-r3" class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--purple-l)">🔍</div>
+        <div class="sc-meta">
+          <div class="sc-title">Solicitar Dados para Instrução do Pedido</div>
+          <div class="sc-desc">Para pedir ao fórum os documentos ou informações faltantes</div>
+        </div>
+        <span class="sc-badge" style="background:var(--purple-l);color:var(--purple)">Pendência</span>
+        <button class="sc-toggle" onclick="toggleForm('f-r3')">▼</button>
+      </div>
+      <div class="sc-fields hidden" id="f-r3">
+        <div class="frow single">
+          <div class="fgroup"><label>O que está faltando? (marque o que se aplica)</label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px" id="check-r3">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12.5px;color:var(--ink2)"><input type="checkbox" data-item="Número completo do processo" onchange="renderMsg('r3')"> Número do processo</label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12.5px;color:var(--ink2)"><input type="checkbox" data-item="Identificação e dados completos da parte a ser assistida" onchange="renderMsg('r3')"> Identificação da parte</label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12.5px;color:var(--ink2)"><input type="checkbox" data-item="Despacho ou ofício do Juízo solicitando a nomeação" onchange="renderMsg('r3')"> Despacho do juiz</label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12.5px;color:var(--ink2)"><input type="checkbox" data-item="Documentos pertinentes à audiência ou ao ato processual" onchange="renderMsg('r3')"> Docs da audiência</label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12.5px;color:var(--ink2)"><input type="checkbox" data-item="CPF da parte assistida" onchange="renderMsg('r3')"> CPF da parte</label>
+            </div>
+          </div>
+        </div>
+        <div class="frow single">
+          <div class="fgroup"><label>Observação adicional (opcional)</label><textarea id="r3-obs" placeholder="Outras informações necessárias..." oninput="renderMsg('r3')"></textarea></div>
+        </div>
+      </div>
+      <div class="sc-preview">
+        <div class="preview-label">Prévia da mensagem</div>
+        <div class="preview-box" id="prev-r3"></div>
+      </div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('r3')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('r3','Solicitar Dados ao Fórum','🔍')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar no Histórico</button>
+      </div>
+    </div>
+
+    <!-- CARD 4: Acuse de Recebimento -->
+    <div id="sc-r4" class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--teal-l)">📬</div>
+        <div class="sc-meta">
+          <div class="sc-title">Acuse de Recebimento</div>
+          <div class="sc-desc">Confirmação rápida de que o ofício foi recebido e está sendo analisado</div>
+        </div>
+        <span class="sc-badge" style="background:var(--teal-l);color:var(--teal)">Rápido</span>
+        <button class="sc-toggle" onclick="toggleForm('f-r4')">▼</button>
+      </div>
+      <div class="sc-fields hidden" id="f-r4">
+        <div class="frow">
+          <div class="fgroup"><label>Número do processo (opcional)</label><input type="text" id="r4-proc" placeholder="0000000-00.0000.0.00.0000" oninput="renderMsg('r4')"></div>
+          <div class="fgroup"><label>Destinatário</label><input type="text" id="r4-dest" placeholder="Ex.: MM. Juíza Dra. Thais Porto" oninput="renderMsg('r4')"></div>
+        </div>
+      </div>
+      <div class="sc-preview">
+        <div class="preview-label">Prévia da mensagem</div>
+        <div class="preview-box" id="prev-r4"></div>
+      </div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('r4')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('r4','Acuse de Recebimento','📬')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar no Histórico</button>
+      </div>
+    </div>
   </div>
 
-  <!-- ══ ABA 3 — CURADOR ESPECIAL ══ -->
+  <!-- ══════════════════════════════ -->
+  <!-- ABA 3 — CURADOR ESPECIAL -->
+  <!-- ══════════════════════════════ -->
   <div class="panel" id="panel-curador">
-    <div class="ph">
-      <div class="ph-title">Curador Especial</div>
-      <div class="ph-desc">Orientações e respostas para demandas de curador especial — existência de nomeação, cancelamento e envio de ofício.</div>
+    <div class="phead">
+      <div class="ph-left">
+        <div class="ph-badge">👤 Curador Especial</div>
+        <div class="ph-title">Curador Especial</div>
+        <div class="ph-desc">Orientações, checklist e respostas prontas para demandas de curador especial.</div>
+      </div>
     </div>
 
     <div class="alert alert-red">
       <div class="alert-icon">🚫</div>
-      <div>
+      <div class="alert-content">
         <div class="alert-title">Não é possível nomear novo Curador Especial se já existe um ativo no processo</div>
-        <div class="alert-text">Quando já há advogado nomeado como curador especial no sistema, o fórum deve ser informado com os dados da nomeação existente. Só é possível nova indicação se a nomeação anterior estiver cancelada (sem nome/data exibidos no sistema).</div>
+        <div class="alert-text">Quando já há advogado nomeado como curador especial no sistema, o fórum deve ser informado com os dados da nomeação existente. Só é possível nova indicação se a nomeação anterior estiver cancelada.</div>
       </div>
     </div>
 
-    <div class="icard">
-      <div class="icard-title">ℹ️ O que verificar ao receber ofício de Curador Especial</div>
-      <div class="irow"><div class="idot" style="background:var(--blue)"></div><div class="itext"><strong>1º:</strong> No DOL, aba "Encaminhamento DPESP-OAB", consulte o número do processo informado no ofício.</div></div>
-      <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Se não existir nomeação:</strong> Proceder normalmente com o tutorial de nomeação (aba correspondente).</div></div>
-      <div class="irow"><div class="idot" style="background:var(--red)"></div><div class="itext"><strong>Se já existir nomeação ativa:</strong> O sistema exibe botão "Clique aqui". Anote nome, OAB e data — responda ao fórum informando que já existe curador nomeado.</div></div>
-      <div class="irow"><div class="idot" style="background:var(--amber)"></div><div class="itext"><strong>Se a nomeação foi cancelada:</strong> Sistema não exibe dados (nome/data em branco). Nesse caso, nova indicação é possível.</div></div>
+    <!-- CHECKLIST CURADOR -->
+    <div class="checklist-card">
+      <div class="cl-head">
+        <div class="cl-title">🔎 O que verificar ao receber o ofício</div>
+        <div class="cl-progress">
+          <div class="cl-bar-wrap"><div class="cl-bar" id="bar-cur" style="width:0%"></div></div>
+          <div class="cl-pct" id="pct-cur">0%</div>
+        </div>
+        <button class="cl-reset" onclick="resetChecklist('cur')"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.3"/></svg> Resetar</button>
+      </div>
+      <div class="cl-items" id="items-cur">
+        <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Anotei o <strong>número completo do processo</strong> informado no ofício</div><span class="cl-tag chip-blue chip">Primeiro</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Consultei o número no <strong>sistema DOL → aba "Encaminhamento DPESP-OAB"</strong></div><span class="cl-tag chip-blue chip">Segundo</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Identifiquei o resultado: <strong>sem nomeação / nomeação ativa / nomeação cancelada</strong></div><span class="cl-tag chip-blue chip">Terceiro</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Se ativa: anotei <strong>nome, OAB e data</strong> para informar ao fórum</div><span class="cl-tag chip-gold chip">Se ativo</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Escolhi a resposta correta abaixo e <strong>preenchi os campos</strong> antes de copiar</div><span class="cl-tag chip-gold chip">Final</span></div>
+      </div>
     </div>
 
-    <div class="sdiv">Respostas prontas — Curador Especial</div>
-    <div class="rcard-grid" id="curador-grid"></div>
+    <div class="sdiv">Respostas Prontas — Curador Especial</div>
+
+    <!-- Curador 1: Já existe -->
+    <div class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--red-l)">🚫</div>
+        <div class="sc-meta">
+          <div class="sc-title">Já Existe Curador Nomeado</div>
+          <div class="sc-desc">Sistema exibe botão "Clique aqui" com dados da nomeação ativa</div>
+        </div>
+        <span class="sc-badge" style="background:var(--red-l);color:var(--red)">Nomeação Ativa</span>
+        <button class="sc-toggle" onclick="toggleForm('f-cu1')">▼</button>
+      </div>
+      <div class="sc-fields hidden" id="f-cu1">
+        <div class="frow">
+          <div class="fgroup"><label>Número do processo *</label><input type="text" id="cu1-proc" placeholder="0000000-00.0000.0.00.0000" oninput="renderMsg('cu1')"></div>
+          <div class="fgroup"><label>Nome do(a) advogado(a) nomeado(a) *</label><input type="text" id="cu1-adv" placeholder="Dr(a). Nome Completo" oninput="renderMsg('cu1')"></div>
+        </div>
+        <div class="frow">
+          <div class="fgroup"><label>Nº OAB *</label><input type="text" id="cu1-oab" placeholder="000.000/SP" oninput="renderMsg('cu1')"></div>
+          <div class="fgroup"><label>Data da indicação *</label><input type="date" id="cu1-data" oninput="renderMsg('cu1')"></div>
+        </div>
+      </div>
+      <div class="sc-preview"><div class="preview-label">Prévia da mensagem</div><div class="preview-box" id="prev-cu1"></div></div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('cu1')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('cu1','Curador — Já Existe Nomeação','🚫')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar</button>
+      </div>
+    </div>
+
+    <!-- Curador 2: Envio de ofício -->
+    <div class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--green-l)">📎</div>
+        <div class="sc-meta">
+          <div class="sc-title">Encaminhar Ofício de Curador ao Fórum</div>
+          <div class="sc-desc">Para enviar o ofício de indicação gerado pelo sistema</div>
+        </div>
+        <span class="sc-badge" style="background:var(--green-l);color:var(--green)">Envio</span>
+        <button class="sc-toggle" onclick="toggleForm('f-cu2')">▼</button>
+      </div>
+      <div class="sc-fields hidden" id="f-cu2">
+        <div class="frow">
+          <div class="fgroup"><label>Destinatário</label><input type="text" id="cu2-dest" placeholder="Ex.: MM. Juíza Dra. Thais Porto" oninput="renderMsg('cu2')"></div>
+          <div class="fgroup"><label>Número do processo (opcional)</label><input type="text" id="cu2-proc" placeholder="0000000-00.0000.0.00.0000" oninput="renderMsg('cu2')"></div>
+        </div>
+      </div>
+      <div class="sc-preview"><div class="preview-label">Prévia da mensagem</div><div class="preview-box" id="prev-cu2"></div></div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('cu2')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('cu2','Curador — Envio de Ofício','📎')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar</button>
+      </div>
+    </div>
+
+    <!-- Curador 3: Cancelada -->
+    <div class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--purple-l)">🔄</div>
+        <div class="sc-meta">
+          <div class="sc-title">Nomeação Anterior Cancelada — Nova Indicação</div>
+          <div class="sc-desc">Sistema não exibe dados: nova indicação é possível</div>
+        </div>
+        <span class="sc-badge" style="background:var(--purple-l);color:var(--purple)">Cancelada</span>
+        <button class="sc-toggle" onclick="toggleForm('f-cu3')">▼</button>
+      </div>
+      <div class="sc-fields hidden" id="f-cu3">
+        <div class="frow">
+          <div class="fgroup"><label>Número do processo *</label><input type="text" id="cu3-proc" placeholder="0000000-00.0000.0.00.0000" oninput="renderMsg('cu3')"></div>
+          <div class="fgroup"><label>Observação adicional (opcional)</label><input type="text" id="cu3-obs" placeholder="Informação adicional..." oninput="renderMsg('cu3')"></div>
+        </div>
+      </div>
+      <div class="sc-preview"><div class="preview-label">Prévia da mensagem</div><div class="preview-box" id="prev-cu3"></div></div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('cu3')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('cu3','Curador — Nomeação Cancelada','🔄')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar</button>
+      </div>
+    </div>
+
+    <!-- Curador 4: Aguardando dados -->
+    <div class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--amber-l)">❓</div>
+        <div class="sc-meta">
+          <div class="sc-title">Solicitar Nº do Processo para Verificar Curador</div>
+          <div class="sc-desc">Quando o ofício chegou sem o número do processo</div>
+        </div>
+        <span class="sc-badge" style="background:var(--amber-l);color:var(--amber)">Pendência</span>
+        <button class="sc-toggle" onclick="toggleForm('f-cu4')">▼</button>
+      </div>
+      <div class="sc-fields hidden" id="f-cu4">
+        <div class="frow">
+          <div class="fgroup"><label>Destinatário (opcional)</label><input type="text" id="cu4-dest" placeholder="MM. Juíza / Secretaria..." oninput="renderMsg('cu4')"></div>
+          <div class="fgroup"><label>Nome da parte (se souber)</label><input type="text" id="cu4-nome" placeholder="Nome da parte assistida" oninput="renderMsg('cu4')"></div>
+        </div>
+      </div>
+      <div class="sc-preview"><div class="preview-label">Prévia da mensagem</div><div class="preview-box" id="prev-cu4"></div></div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('cu4')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('cu4','Curador — Aguardando Dados','❓')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar</button>
+      </div>
+    </div>
   </div>
 
-  <!-- ══ ABA 4 — AVALIAÇÃO FINANCEIRA ══ -->
+  <!-- ══════════════════════════════ -->
+  <!-- ABA 4 — AVALIAÇÃO FINANCEIRA -->
+  <!-- ══════════════════════════════ -->
   <div class="panel" id="panel-avaliacao">
-    <div class="ph">
-      <div class="ph-title">Avaliação Financeira</div>
-      <div class="ph-desc">Regras e prazo de validade da avaliação financeira no sistema da Defensoria — e como responder ao fórum quando a nomeação não pode ser feita.</div>
-    </div>
-
-    <div class="alert alert-amber">
-      <div class="alert-icon">⏳</div>
-      <div>
-        <div class="alert-title">Validade: 1 (um) ano a partir da data de concessão</div>
-        <div class="alert-text">Quando o fórum solicita nomeação de advogado e o assistido está com avaliação financeira vencida no sistema, <strong>não é possível realizar nova indicação</strong>. O próprio fórum deve ser informado e orientado a comunicar o assistido para comparecer ao atendimento presencial no Poupatempo.</div>
+    <div class="phead">
+      <div class="ph-left">
+        <div class="ph-badge">🗂️ Avaliação Financeira</div>
+        <div class="ph-title">Avaliação Financeira</div>
+        <div class="ph-desc">Regras, validade e resposta pronta para quando o assistido está com avaliação vencida.</div>
       </div>
     </div>
-
+    <div class="alert alert-amber">
+      <div class="alert-icon">⏳</div>
+      <div class="alert-content">
+        <div class="alert-title">Validade: 1 (um) ano a partir da data de concessão</div>
+        <div class="alert-text">Quando o fórum solicita nomeação de advogado e o assistido está com avaliação financeira vencida no sistema, <strong>não é possível realizar nova indicação</strong>. O próprio fórum deve ser informado e orientado a comunicar o assistido para comparecer ao atendimento presencial.</div>
+      </div>
+    </div>
     <div class="icard">
       <div class="icard-title">🏛️ Atendimento para Nova Avaliação — Poupatempo</div>
       <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Endereço:</strong> Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo</div></div>
@@ -362,232 +923,458 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--bg);color:var(-
       <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Senhas:</strong> Até 30 por dia, distribuídas presencialmente no local</div></div>
       <div class="irow"><div class="idot" style="background:var(--green)"></div><div class="itext"><strong>Telefone:</strong> (11) 4154-5191</div></div>
     </div>
-
-    <div class="sdiv">Resposta pronta ao Fórum — Avaliação Vencida</div>
-    <div class="rcard-grid" id="avaliacao-grid"></div>
+    <div class="sdiv">Resposta Pronta — Avaliação Vencida</div>
+    <div class="smartcard">
+      <div class="sc-head">
+        <div class="sc-ico" style="background:var(--amber-l)">⏳</div>
+        <div class="sc-meta">
+          <div class="sc-title">Informar Fórum — Avaliação Financeira Vencida</div>
+          <div class="sc-desc">Resposta completa com orientações para o assistido renovar a avaliação</div>
+        </div>
+        <span class="sc-badge" style="background:var(--amber-l);color:var(--amber)">Impedimento</span>
+        <button class="sc-toggle" onclick="toggleForm('f-av1')">▼</button>
+      </div>
+      <div class="sc-fields" id="f-av1">
+        <div class="frow">
+          <div class="fgroup"><label>Número do processo (opcional)</label><input type="text" id="av1-proc" placeholder="0000000-00.0000.0.00.0000" oninput="renderMsg('av1')"></div>
+          <div class="fgroup"><label>Nome do(a) assistido(a) (opcional)</label><input type="text" id="av1-nome" placeholder="Nome completo" oninput="renderMsg('av1')"></div>
+        </div>
+      </div>
+      <div class="sc-preview"><div class="preview-label">Prévia da mensagem</div><div class="preview-box" id="prev-av1"></div></div>
+      <div class="sc-actions">
+        <button class="btn btn-primary" onclick="copyMsg('av1')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar Mensagem</button>
+        <button class="btn btn-ghost" onclick="saveHistory('av1','Avaliação Financeira Vencida','⏳')"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Salvar</button>
+      </div>
+    </div>
   </div>
 
-  <!-- ══ ABA 5 — EMAILS UPJ ══ -->
+  <!-- ══════════════════════════════ -->
+  <!-- ABA 5 — HISTÓRICO -->
+  <!-- ══════════════════════════════ -->
+  <div class="panel" id="panel-historico">
+    <div class="phead">
+      <div class="ph-left">
+        <div class="ph-badge">🕐 Histórico</div>
+        <div class="ph-title">Histórico de Respostas</div>
+        <div class="ph-desc">Registro de todas as mensagens salvas. Dados armazenados localmente no seu navegador.</div>
+      </div>
+      <button class="btn btn-ghost" onclick="clearHistory()" style="flex-shrink:0"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Limpar tudo</button>
+    </div>
+    <div class="hist-wrap" id="hist-list">
+      <div class="hist-empty"><div class="he-ico">📂</div><p>Nenhuma resposta salva ainda.<br>Gere uma mensagem e clique em "Salvar no Histórico".</p></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- ABA 6 — EMAILS -->
+  <!-- ══════════════════════════════ -->
   <div class="panel" id="panel-emails">
-    <div class="ph">
-      <div class="ph-title">E-mails Institucionais — UPJ Cível</div>
-      <div class="ph-desc">Endereços eletrônicos da Unidade de Processamento Judicial (UPJ) Cível da Comarca de Santana de Parnaíba. Clique em "Enviar e-mail" para abrir no seu cliente de e-mail ou copie o endereço.</div>
+    <div class="phead">
+      <div class="ph-left">
+        <div class="ph-badge">📧 E-mails</div>
+        <div class="ph-title">E-mails Institucionais — UPJ Cível</div>
+        <div class="ph-desc">Endereços da Unidade de Processamento Judicial Cível de Santana de Parnaíba.</div>
+      </div>
     </div>
-
-    <div class="email-section">
-      <div class="email-section-title">🏛️ Unidades Judiciais — UPJ Cível</div>
-      <div class="email-grid" id="grid-upj"></div>
+    <div class="esec">
+      <div class="esec-title">🏛️ Unidades Judiciais — UPJ Cível</div>
+      <div class="egrid" id="grid-upj"></div>
     </div>
-
-    <div class="email-section">
-      <div class="email-section-title">👨‍⚖️ Gabinetes dos Magistrados</div>
-      <div class="email-grid" id="grid-mag"></div>
+    <div class="esec">
+      <div class="esec-title">👨‍⚖️ Gabinetes dos Magistrados</div>
+      <div class="egrid" id="grid-mag"></div>
     </div>
   </div>
 
-  <!-- ══ ABA 6 — CRITÉRIOS ══ -->
+  <!-- ══════════════════════════════ -->
+  <!-- ABA 7 — CRITÉRIOS -->
+  <!-- ══════════════════════════════ -->
   <div class="panel" id="panel-criterios">
-    <div class="ph">
-      <div class="ph-title">Critérios e Regras — Convênio DPESP/OAB</div>
-      <div class="ph-desc">Referência rápida: quem tem direito à nomeação, com ou sem avaliação financeira.</div>
-    </div>
-
-    <div class="alert alert-green">
-      <div class="alert-icon">✅</div>
-      <div>
-        <div class="alert-title">Presunção de vulnerabilidade — SEM avaliação financeira</div>
-        <div class="alert-text">Os casos abaixo não exigem avaliação financeira nem presença de responsável legal.</div>
+    <div class="phead">
+      <div class="ph-left">
+        <div class="ph-badge">📌 Referência Rápida</div>
+        <div class="ph-title">Critérios e Regras</div>
+        <div class="ph-desc">Quem tem direito à nomeação, com ou sem avaliação financeira. Consulta rápida para tomada de decisão.</div>
       </div>
     </div>
-    <div class="icard">
-      <div class="icard-title">✅ Com Presunção — Sem Avaliação Financeira</div>
-      <div class="irow"><div class="idot" style="background:#059669"></div><div class="itext"><strong>Vítima de violência (Lei 13.431/17):</strong> criança/adolescente para o ato do depoimento especial.</div></div>
-      <div class="irow"><div class="idot" style="background:#059669"></div><div class="itext"><strong>Acolhidos institucionalmente</strong> ou em cumprimento de medida de internação.</div></div>
-      <div class="irow"><div class="idot" style="background:#059669"></div><div class="itext"><strong>Identidade de gênero:</strong> quando houver oposição ou omissão dos responsáveis legais sobre tratamentos, nome social etc.</div></div>
-    </div>
-
-    <div class="alert alert-amber">
-      <div class="alert-icon">⚠️</div>
-      <div>
-        <div class="alert-title">Sem presunção — Exige triagem com avaliação financeira e análise jurídica</div>
-        <div class="alert-text">Os casos abaixo precisam de triagem regular antes de qualquer nomeação.</div>
+    <div class="criteria-grid">
+      <div class="crit-card yes">
+        <div class="crit-header"><div class="crit-icon">✅</div><div class="crit-label">Com presunção — SEM avaliação financeira</div></div>
+        <div class="crit-item"><div class="cdot" style="background:var(--green)"></div><div class="crit-text"><strong>Vítima de violência (Lei 13.431/17):</strong> criança/adolescente para o ato do depoimento especial</div></div>
+        <div class="crit-item"><div class="cdot" style="background:var(--green)"></div><div class="crit-text"><strong>Acolhidos institucionalmente</strong> ou em cumprimento de medida de internação</div></div>
+        <div class="crit-item"><div class="cdot" style="background:var(--green)"></div><div class="crit-text"><strong>Identidade de gênero:</strong> quando houver oposição ou omissão dos responsáveis legais</div></div>
+      </div>
+      <div class="crit-card no">
+        <div class="crit-header"><div class="crit-icon">❌</div><div class="crit-label">Sem presunção — REQUER avaliação financeira</div></div>
+        <div class="crit-item"><div class="cdot" style="background:var(--red)"></div><div class="crit-text"><strong>Violência patrimonial</strong> que não repercuta em outros direitos fundamentais</div></div>
+        <div class="crit-item"><div class="cdot" style="background:var(--red)"></div><div class="crit-text"><strong>Guarda, alimentos ou divórcio</strong> dos pais/representantes — salvo intervenção direta da criança</div></div>
+        <div class="crit-item"><div class="cdot" style="background:var(--red)"></div><div class="crit-text"><strong>Violência psicológica esporádica</strong> (xingamentos, bullying não sistemático)</div></div>
       </div>
     </div>
-    <div class="icard">
-      <div class="icard-title">❌ Sem Presunção — Requer Avaliação Financeira</div>
-      <div class="irow"><div class="idot" style="background:#d97706"></div><div class="itext"><strong>Violência patrimonial</strong> que não repercuta em outros direitos fundamentais.</div></div>
-      <div class="irow"><div class="idot" style="background:#d97706"></div><div class="itext"><strong>Guarda, alimentos ou divórcio</strong> dos pais/representantes — salvo quando a criança/adolescente intervir diretamente para proteger direito fundamental.</div></div>
-      <div class="irow"><div class="idot" style="background:#d97706"></div><div class="itext"><strong>Violência psicológica esporádica</strong> (xingamentos, constrangimentos não sistemáticos, bullying entre adolescentes).</div></div>
-    </div>
-
     <div class="icard">
       <div class="icard-title">📚 Fundamentação Legal</div>
       <div class="irow"><div class="idot" style="background:var(--purple)"></div><div class="itext"><strong>Lei nº 13.431/2017</strong> — sistema de garantia de direitos da criança e adolescente vítima ou testemunha de violência.</div></div>
       <div class="irow"><div class="idot" style="background:var(--purple)"></div><div class="itext"><strong>Deliberação 89/08 do CSDP, art. 2º, §20</strong> — com redação da Deliberação 409/23 — presunção de usuário da Defensoria para vítimas do depoimento especial.</div></div>
+    </div>
+    <div class="icard">
+      <div class="icard-title">📞 Contato — Assessoria de Convênios DPESP</div>
+      <div class="irow"><div class="idot" style="background:var(--blue)"></div><div class="itext"><strong>Telefones:</strong> (11) 4802-9622 e (11) 4802-9623</div></div>
+      <div class="irow"><div class="idot" style="background:var(--blue)"></div><div class="itext"><strong>E-mail:</strong> ssi@defensoria.sp.def.br</div></div>
     </div>
   </div>
 
 </div>
 
 <!-- MODAL -->
-<div id="moverlay" onclick="closeModal(event)">
+<div id="overlay" onclick="closeModal(event)">
   <div id="modal">
     <div id="m-hd">
-      <div id="m-emoji"></div>
+      <div id="m-ico"></div>
       <div id="m-title"></div>
       <button id="m-close" onclick="closeModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div id="m-body"><div id="m-text"></div></div>
     <div id="m-ft">
-      <button class="mbtn-sec" onclick="closeModal()">Fechar</button>
-      <button class="mbtn-pri" id="m-copy" onclick="copyModal()">
-        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2v1"/></svg>
-        Copiar mensagem
-      </button>
+      <button class="btn btn-ghost" onclick="closeModal()">Fechar</button>
+      <button class="btn btn-primary" id="m-copy" onclick="copyModal()"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar mensagem</button>
     </div>
   </div>
 </div>
 <div id="toast"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="toast-msg">Copiado!</span></div>
 
 <script>
-/* ══ DADOS ══ */
-var RESPOSTAS=[
-  {id:'r1',emoji:'📄',color:'c-blue',badge:'tag-blue',badgeText:'Ofício Recebido',title:'Resposta Padrão — Ofício Recebido',
-  text:"Prezada(o) Meritíssima(o),\n\nCumprimentando cordialmente, vimos, em atenção ao ofício recebido, prestar as informações solicitadas e os esclarecimentos necessários referentes ao caso em questão.\n\nPermanecem à inteira disposição para quaisquer informações adicionais.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
-  {id:'r2',emoji:'✅',color:'c-green',badge:'tag-green',badgeText:'Nomeação Realizada',title:'Confirmar Nomeação ao Fórum',
-  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que foi realizada a indicação de advogado(a) conveniado(a) junto à Assessoria de Convênios da Defensoria Pública do Estado de São Paulo para acompanhamento do caso, nos termos do Convênio DPESP/OAB-SP.\n\nO ofício de indicação será encaminhado ao(à) advogado(a) nomeado(a) diretamente pela Defensoria Pública.\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
-  {id:'r3',emoji:'🔍',color:'c-indigo',badge:'tag-indigo',badgeText:'Solicitando Informações',title:'Solicitar Dados para Instrução do Pedido',
-  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que para darmos prosseguimento à análise e eventual indicação de advogado(a) conveniado(a), necessitamos das seguintes informações/documentos:\n\n— Número completo do processo\n— Identificação e dados completos da parte a ser assistida\n— Despacho ou ofício do Juízo solicitando a nomeação\n— Documentos pertinentes à audiência ou ao ato processual\n\nApós o recebimento, daremos o encaminhamento adequado.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
-  {id:'r4',emoji:'📬',color:'c-teal',badge:'tag-teal',badgeText:'Acuse de Recebimento',title:'Acuse de Recebimento de Ofício',
-  text:"Prezado(a),\n\nAcusamos o recebimento do ofício encaminhado a esta Assistência Judiciária e informamos que o documento foi devidamente recepcionado e encaminhado ao setor competente para as providências cabíveis.\n\nQualquer atualização será comunicada oportunamente.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"}
-];
+/* ════════════════════════════════════
+   DADOS — TEMPLATES
+   ════════════════════════════════════ */
+var SIG="\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191";
 
-var CURADOR=[
-  {id:'cu1',emoji:'🚫',color:'c-red',badge:'tag-red',badgeText:'Já Existe Curador',title:'Resposta ao Fórum — Já Existe Curador Nomeado',
-  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, após consulta ao sistema de indicações da Defensoria Pública do Estado de São Paulo (DOL), verificamos que para o processo nº [NÚMERO DO PROCESSO] já consta advogado(a) conveniado(a) nomeado(a) como curador(a) especial:\n\nAdvogado(a): [NOME DO ADVOGADO]\nInscrição OAB: [Nº OAB]\nData de Indicação: [DATA]\n\nEm razão da existência de nomeação válida e ativa no sistema, não é possível realizar nova indicação para o mesmo processo.\n\nCaso o Juízo entenda necessária a substituição do(a) curador(a) ou haja alguma intercorrência, solicitamos comunicação formal para que possamos verificar as providências cabíveis.\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
-  {id:'cu2',emoji:'📎',color:'c-green',badge:'tag-green',badgeText:'Envio de Ofício',title:'Encaminhar Ofício de Curador ao Fórum',
-  text:"Prezado(a),\n\nEm atendimento à demanda de V.Sa., segue em anexo o Ofício de Indicação de Curador Especial para as devidas providências.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
-  {id:'cu3',emoji:'🔄',color:'c-purple',badge:'tag-purple',badgeText:'Nomeação Cancelada',title:'Nomeação Anterior Cancelada — Nova Indicação Realizada',
-  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao consultarmos o sistema da Defensoria Pública do Estado de São Paulo, verificamos que a nomeação anterior de curador(a) especial para o processo nº [NÚMERO DO PROCESSO] foi CANCELADA, não constando dados de advogado(a) ou data de indicação ativa.\n\nEm razão disso, procedemos ao encaminhamento de nova solicitação de indicação junto à Assessoria de Convênios da Defensoria Pública, que analisará o pedido e emitirá o respectivo ofício ao(à) advogado(a) indicado(a).\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"},
-  {id:'cu4',emoji:'❓',color:'c-amber',badge:'tag-amber',badgeText:'Aguardando Dados',title:'Solicitar Nº do Processo para Verificar Curador',
-  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, para que possamos verificar a existência de curador(a) especial já nomeado(a) e dar o encaminhamento adequado, solicitamos que nos informe:\n\n— Número completo do processo\n— Nome completo e dados da parte a ser assistida\n— Cópia do despacho ou decisão judicial solicitando a nomeação\n\nApós o recebimento, realizaremos a consulta ao sistema e daremos retorno com brevidade.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba\nTelefone: (11) 4154-5191"}
-];
-
-var AVALIACAO=[
-  {id:'av1',emoji:'⏳',color:'c-amber',badge:'tag-amber',badgeText:'Avaliação Vencida',title:'Resposta ao Fórum — Avaliação Financeira Vencida',
-  text:"Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao verificar o cadastro do(a) assistido(a) em nosso sistema, identificamos que a avaliação financeira registrada encontra-se VENCIDA — sua validade é de 1 (um) ano.\n\nPor esse motivo, não é possível dar prosseguimento à indicação de advogado(a) conveniado(a) sem que seja realizada nova avaliação presencial.\n\nOrientamos que o(a) assistido(a) compareça ao atendimento presencial:\n\nLocal: Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo\nHorário: Segunda a sexta-feira, das 09h às 12h (até 30 senhas/dia)\nTelefone: (11) 4154-5191\n\nApós a nova avaliação, daremos prosseguimento à indicação.\n\nPermanecem à inteira disposição.\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba"}
-];
-
-/* ══ E-MAILS UPJ ══ */
-var UPJ=[
-  {nome:'1ª Vara Cível',role:'Unidade Judicial',email:'parnaiba1cv@tjsp.jus.br',icon:'⚖️',color:'#dbeafe'},
-  {nome:'2ª Vara Cível',role:'Unidade Judicial',email:'parnaiba2cv@tjsp.jus.br',icon:'⚖️',color:'#dbeafe'},
-  {nome:'Vara da Família e das Sucessões',role:'Unidade Judicial',email:'parnaibafam@tjsp.jus.br',icon:'👨‍👩‍👧',color:'#fce7f3'},
-  {nome:'UPJ Cível (1ª, 2ª e Família)',role:'Unidade de Processamento Judicial — UPJ',email:'upj1e2famparnaiba@tjsp.jus.br',icon:'🏛️',color:'#d1fae5'}
-];
-var MAG=[
-  {nome:'Dra. Thais da Silva Porto',role:'Magistrada',email:'gabtporto@tjsp.jus.br',icon:'👩‍⚖️',color:'#ede9fe'},
-  {nome:'Dr. Luis Antonio Nocito Echevarria',role:'Magistrado',email:'gablaechevarria@tjsp.jus.br',icon:'👨‍⚖️',color:'#ede9fe'},
-  {nome:'Dra. Andressa Martins Bejarano',role:'Magistrada',email:'gabambejarano@tjsp.jus.br',icon:'👩‍⚖️',color:'#ede9fe'},
-  {nome:'Dr. Daniel Lucio da Silva Porto',role:'Magistrado',email:'gabdporto@tjsp.jus.br',icon:'👨‍⚖️',color:'#ede9fe'}
-];
-
-/* ══ RENDER ══ */
-function cpySVG(){return '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'}
-function chkSVG(){return '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'}
-function expSVG(){return '<svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>'}
-function mailSVG(){return '<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>'}
-function escH(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-function renderGrid(data,cid){
-  var el=document.getElementById(cid);if(!el)return;
-  el.innerHTML=data.map(function(d){
-    return '<div class="rcard"><div class="rcard-hd"><div class="rcard-emoji '+d.color+'">'+d.emoji+'</div>'
-      +'<div class="rcard-meta"><div class="rcard-title">'+d.title+'</div>'
-      +'<span class="rcard-badge '+d.badge+'">'+d.badgeText+'</span></div></div>'
-      +'<div class="rcard-body"><div class="rcard-text">'+escH(d.text)+'</div></div>'
-      +'<div class="rcard-ft">'
-      +'<button class="rbtn rbtn-copy" onclick="copyCard(this,\''+d.id+'\')">'+cpySVG()+'Copiar</button>'
-      +'<button class="rbtn rbtn-expand" onclick="openModal(\''+d.id+'\')">'+expSVG()+'Ver completo</button>'
-      +'</div></div>';
-  }).join('');
+function getMsg(id){
+  var p=function(sel){var el=document.getElementById(sel);return el?el.value.trim():''};
+  switch(id){
+    case 'r1': {
+      var proc=p('r1-proc'),nome=p('r1-nome'),obs=p('r1-obs');
+      var ref=proc?'\n\nReferência — Processo nº '+proc+(nome?' · Assistido(a): '+nome:''):nome?'\n\nAssistido(a): '+nome:'';
+      var extra=obs?'\n\n'+obs:'';
+      return "Prezada(o) Meritíssima(o),\n\nCumprimentando cordialmente, vimos, em atenção ao ofício recebido, prestar as informações solicitadas e os esclarecimentos necessários referentes ao caso em questão."+ref+extra+"\n\nPermanecem à inteira disposição para quaisquer informações adicionais."+SIG;
+    }
+    case 'r2': {
+      var proc=p('r2-proc'),adv=p('r2-adv'),oab=p('r2-oab'),data=p('r2-data');
+      var ref=proc?'\n\nProcesso nº: '+proc:'';
+      var dadosAdv=(adv||oab||data)?'\n\nDados da indicação:\nAdvogado(a): '+(adv||'[NOME DO ADVOGADO]')+'\nInscrição OAB: '+(oab||'[Nº OAB]')+'\nData de indicação: '+(data?formatDate(data):'[DATA]'):'';
+      return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que foi realizada a indicação de advogado(a) conveniado(a) junto à Assessoria de Convênios da Defensoria Pública do Estado de São Paulo para acompanhamento do caso, nos termos do Convênio DPESP/OAB-SP."+ref+dadosAdv+"\n\nO ofício de indicação será encaminhado ao(à) advogado(a) nomeado(a) diretamente pela Defensoria Pública.\n\nPermanecem à inteira disposição."+SIG;
+    }
+    case 'r3': {
+      var checks=Array.from(document.querySelectorAll('#check-r3 input[type=checkbox]:checked')).map(function(c){return '— '+c.dataset.item});
+      var obs=p('r3-obs');
+      var lista=checks.length?'\n\n'+checks.join('\n'):'';
+      var extra=obs?'\n\n— '+obs:'';
+      return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que para darmos prosseguimento à análise e eventual indicação de advogado(a) conveniado(a), necessitamos das seguintes informações/documentos:"+lista+extra+"\n\nApós o recebimento, daremos o encaminhamento adequado."+SIG;
+    }
+    case 'r4': {
+      var proc=p('r4-proc'),dest=p('r4-dest');
+      var saud=dest?dest+',':'Prezado(a),';
+      var ref=proc?' referente ao processo nº '+proc:'';
+      return saud+"\n\nAcusamos o recebimento do ofício encaminhado a esta Assistência Judiciária"+ref+" e informamos que o documento foi devidamente recepcionado e encaminhado ao setor competente para as providências cabíveis.\n\nQualquer atualização será comunicada oportunamente."+SIG;
+    }
+    case 'cu1': {
+      var proc=p('cu1-proc')||'[NÚMERO DO PROCESSO]',adv=p('cu1-adv')||'[NOME DO ADVOGADO]',oab=p('cu1-oab')||'[Nº OAB]',data=p('cu1-data');
+      var dataFmt=data?formatDate(data):'[DATA]';
+      return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, após consulta ao sistema de indicações da Defensoria Pública do Estado de São Paulo (DOL), verificamos que para o processo nº "+proc+" já consta advogado(a) conveniado(a) nomeado(a) como curador(a) especial:\n\nAdvogado(a): "+adv+"\nInscrição OAB: "+oab+"\nData de Indicação: "+dataFmt+"\n\nEm razão da existência de nomeação válida e ativa no sistema, não é possível realizar nova indicação para o mesmo processo.\n\nCaso o Juízo entenda necessária a substituição do(a) curador(a) ou haja alguma intercorrência, solicitamos comunicação formal para que possamos verificar as providências cabíveis.\n\nPermanecem à inteira disposição."+SIG;
+    }
+    case 'cu2': {
+      var dest=p('cu2-dest'),proc=p('cu2-proc');
+      var saud=dest?dest+',':'Prezado(a),';
+      var ref=proc?' referente ao processo nº '+proc:'';
+      return saud+"\n\nEm atendimento à demanda de V.Sa., segue em anexo o Ofício de Indicação de Curador Especial"+ref+" para as devidas providências."+SIG;
+    }
+    case 'cu3': {
+      var proc=p('cu3-proc')||'[NÚMERO DO PROCESSO]',obs=p('cu3-obs');
+      var extra=obs?'\n\n'+obs:'';
+      return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao consultarmos o sistema da Defensoria Pública do Estado de São Paulo, verificamos que a nomeação anterior de curador(a) especial para o processo nº "+proc+" foi CANCELADA, não constando dados de advogado(a) ou data de indicação ativa."+extra+"\n\nEm razão disso, procedemos ao encaminhamento de nova solicitação de indicação junto à Assessoria de Convênios da Defensoria Pública, que analisará o pedido e emitirá o respectivo ofício ao(à) advogado(a) indicado(a).\n\nPermanecem à inteira disposição."+SIG;
+    }
+    case 'cu4': {
+      var dest=p('cu4-dest'),nome=p('cu4-nome');
+      var saud=dest?dest+',':'Prezada(o) Meritíssima(o),';
+      var ref=nome?'\n\n— Nome completo e dados da parte a ser assistida: '+nome+'\n— Cópia do despacho ou decisão judicial solicitando a nomeação':'\n\n— Número completo do processo\n— Nome completo e dados da parte a ser assistida\n— Cópia do despacho ou decisão judicial solicitando a nomeação';
+      return saud+"\n\nEm atenção ao ofício recebido, para que possamos verificar a existência de curador(a) especial já nomeado(a) e dar o encaminhamento adequado, solicitamos que nos informe:"+ref+"\n\nApós o recebimento, realizaremos a consulta ao sistema e daremos retorno com brevidade."+SIG;
+    }
+    case 'av1': {
+      var proc=p('av1-proc'),nome=p('av1-nome');
+      var ref='';
+      if(proc||nome){ref='\n\nReferência:';if(proc)ref+='\nProcesso nº: '+proc;if(nome)ref+='\nAssistido(a): '+nome;}
+      return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao verificar o cadastro do(a) assistido(a) em nosso sistema, identificamos que a avaliação financeira registrada encontra-se VENCIDA — sua validade é de 1 (um) ano."+ref+"\n\nPor esse motivo, não é possível dar prosseguimento à indicação de advogado(a) conveniado(a) sem que seja realizada nova avaliação presencial.\n\nOrientamos que o(a) assistido(a) compareça ao atendimento presencial:\n\nLocal: Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo\nHorário: Segunda a sexta-feira, das 09h às 12h (até 30 senhas/dia)\nTelefone: (11) 4154-5191\n\nApós a nova avaliação, daremos prosseguimento à indicação.\n\nPermanecem à inteira disposição."+SIG;
+    }
+    default: return '';
+  }
 }
 
-function renderEmails(data,cid,isMag){
-  var el=document.getElementById(cid);if(!el)return;
-  el.innerHTML=data.map(function(d,i){
-    return '<div class="ecard'+(isMag?' mag':'')+'"><div class="ecard-icon" style="background:'+d.color+'">'+d.icon+'</div>'
-      +'<div class="ecard-body">'
-      +'<div class="ecard-name">'+d.nome+'</div>'
-      +'<div class="ecard-role">'+d.role+'</div>'
-      +'<div class="ecard-email">'+d.email+'</div>'
-      +'<div class="ecard-actions">'
-      +'<a class="eact eact-mail" href="mailto:'+d.email+'">'+mailSVG()+'Enviar e-mail</a>'
-      +'<button class="eact eact-copy" onclick="copyEmail(this,\''+d.email+'\')">'+cpySVG()+'Copiar</button>'
-      +'</div></div></div>';
-  }).join('');
+/* ════════════════════════════════════
+   RENDER PREVIEWS
+   ════════════════════════════════════ */
+function renderMsg(id){
+  var el=document.getElementById('prev-'+id);
+  if(!el)return;
+  var txt=getMsg(id);
+  el.textContent=txt;
 }
+function renderAll(){
+  ['r1','r2','r3','r4','cu1','cu2','cu3','cu4','av1'].forEach(renderMsg);
+}
+renderAll();
 
-var ALL=[].concat(RESPOSTAS,CURADOR,AVALIACAO);
-function getById(id){return ALL.find(function(d){return d.id===id})}
-
-function copyCard(btn,id){
-  var d=getById(id);if(!d)return;
-  navigator.clipboard.writeText(d.text).then(function(){
-    btn.classList.add('copied');btn.innerHTML=chkSVG()+'Copiado!';toast('Mensagem copiada!');
-    setTimeout(function(){btn.classList.remove('copied');btn.innerHTML=cpySVG()+'Copiar'},1900);
+/* ════════════════════════════════════
+   COPY
+   ════════════════════════════════════ */
+function copyMsg(id){
+  var txt=getMsg(id);
+  if(!txt)return;
+  navigator.clipboard.writeText(txt).then(function(){
+    toast('✅ Mensagem copiada!');
+    updateStats(id);
   });
-}
-function copyEmail(btn,email){
-  navigator.clipboard.writeText(email).then(function(){
-    btn.classList.add('copied');var o=btn.innerHTML;btn.innerHTML=chkSVG()+'Copiado!';toast('E-mail copiado!');
-    setTimeout(function(){btn.classList.remove('copied');btn.innerHTML=o},1900);
-  });
-}
-
-var _mid=null;
-function openModal(id){
-  var d=getById(id);if(!d)return;_mid=id;
-  document.getElementById('m-emoji').textContent=d.emoji;
-  document.getElementById('m-title').textContent=d.title;
-  document.getElementById('m-text').textContent=d.text;
-  document.getElementById('moverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(e){
-  if(e&&e.target!==document.getElementById('moverlay'))return;
-  document.getElementById('moverlay').classList.remove('open');
-  document.body.style.overflow='';
 }
 function copyModal(){
-  if(!_mid)return;var d=getById(_mid);if(!d)return;
-  navigator.clipboard.writeText(d.text).then(function(){
-    var b=document.getElementById('m-copy');b.innerHTML=chkSVG()+'Copiado!';toast('Mensagem copiada!');
-    setTimeout(function(){b.innerHTML=cpySVG()+'Copiar mensagem'},1900);
-  });
+  var txt=document.getElementById('m-text').textContent;
+  navigator.clipboard.writeText(txt).then(function(){toast('✅ Copiado!');});
 }
+
+/* ════════════════════════════════════
+   TOGGLE FORM
+   ════════════════════════════════════ */
+function toggleForm(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  el.classList.toggle('hidden');
+  var btn=el.previousElementSibling;
+  if(btn&&btn.classList.contains('sc-toggle'))btn.textContent=el.classList.contains('hidden')?'▼':'▲';
+}
+
+/* ════════════════════════════════════
+   HISTORY
+   ════════════════════════════════════ */
+var HIST=JSON.parse(localStorage.getItem('painel-hist')||'[]');
+
+function saveHistory(id,label,ico){
+  var txt=getMsg(id);
+  if(!txt){toast('⚠️ Preencha os campos antes de salvar.');return;}
+  var entry={id:Date.now(),label:label,ico:ico,txt:txt,date:new Date().toISOString()};
+  HIST.unshift(entry);
+  if(HIST.length>50)HIST=HIST.slice(0,50);
+  localStorage.setItem('painel-hist',JSON.stringify(HIST));
+  renderHistory();
+  toast('💾 Salvo no histórico!');
+  updateStats(id);
+}
+
+function deleteHistory(id){
+  HIST=HIST.filter(function(h){return h.id!==id});
+  localStorage.setItem('painel-hist',JSON.stringify(HIST));
+  renderHistory();
+  toast('🗑️ Removido do histórico');
+}
+
+function clearHistory(){
+  if(!confirm('Limpar todo o histórico? Esta ação não pode ser desfeita.'))return;
+  HIST=[];
+  localStorage.removeItem('painel-hist');
+  renderHistory();
+  toast('🗑️ Histórico limpo');
+}
+
+function renderHistory(){
+  var el=document.getElementById('hist-list');
+  if(!el)return;
+  updateHistBadge();
+  if(!HIST.length){
+    el.innerHTML='<div class="hist-empty"><div class="he-ico">📂</div><p>Nenhuma resposta salva ainda.<br>Gere uma mensagem e clique em "Salvar no Histórico".</p></div>';
+    return;
+  }
+  el.innerHTML=HIST.map(function(h){
+    var d=new Date(h.date);
+    var dstr=d.toLocaleDateString('pt-BR')+' às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    var preview=h.txt.substring(0,120).replace(/\n/g,' ')+'...';
+    return '<div class="hitem">'
+      +'<div class="hitem-ico" style="background:var(--blue-l)">'+h.ico+'</div>'
+      +'<div class="hitem-body">'
+      +'<div class="hitem-title">'+h.label+'</div>'
+      +'<div class="hitem-meta"><span>📅 '+dstr+'</span></div>'
+      +'<div class="hitem-preview">'+preview+'</div>'
+      +'<div class="hitem-actions">'
+      +'<button class="btn btn-primary" style="font-size:11.5px;padding:7px 14px" onclick="copyHistItem('+h.id+')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar</button>'
+      +'<button class="btn btn-ghost" style="font-size:11.5px;padding:7px 14px" onclick="openHistModal('+h.id+')">Ver completo</button>'
+      +'</div>'
+      +'</div>'
+      +'<div class="hitem-right">'
+      +'<button class="hdel" onclick="deleteHistory('+h.id+')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+  updateStatBar();
+}
+
+function copyHistItem(id){
+  var h=HIST.find(function(x){return x.id===id});
+  if(!h)return;
+  navigator.clipboard.writeText(h.txt).then(function(){toast('✅ Mensagem copiada!');});
+}
+
+function openHistModal(id){
+  var h=HIST.find(function(x){return x.id===id});
+  if(!h)return;
+  document.getElementById('m-ico').textContent=h.ico;
+  document.getElementById('m-title').textContent=h.label;
+  document.getElementById('m-text').textContent=h.txt;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function updateHistBadge(){
+  var b=document.getElementById('hist-count-badge');
+  if(!b)return;
+  if(HIST.length>0){b.style.display='inline';b.textContent=HIST.length;}
+  else b.style.display='none';
+}
+
+renderHistory();
+
+/* ════════════════════════════════════
+   STATS
+   ════════════════════════════════════ */
+var STATS_KEY='painel-stats';
+var statData=JSON.parse(localStorage.getItem(STATS_KEY)||'{"hoje":0,"total":0,"tipos":{},"lastDate":""}');
+
+function updateStats(id){
+  var today=new Date().toDateString();
+  if(statData.lastDate!==today){statData.hoje=0;statData.lastDate=today;}
+  statData.hoje++;statData.total++;
+  statData.tipos[id]=(statData.tipos[id]||0)+1;
+  localStorage.setItem(STATS_KEY,JSON.stringify(statData));
+  updateStatBar();
+}
+
+function updateStatBar(){
+  document.getElementById('stat-hoje').textContent=statData.hoje||0;
+  document.getElementById('stat-total').textContent=HIST.length;
+  var tipos=statData.tipos||{};
+  var top=Object.keys(tipos).sort(function(a,b){return tipos[b]-tipos[a]})[0];
+  var labels={'r1':'Ofício Padrão','r2':'Confirmação','r3':'Solicitação','r4':'Acuse','cu1':'Curador Ativo','cu2':'Envio Ofício','cu3':'Curador Cancel.','cu4':'Dados Curador','av1':'Av. Vencida'};
+  document.getElementById('stat-tipo').textContent=top?labels[top]||'—':'—';
+}
+updateStatBar();
+
+/* ════════════════════════════════════
+   CHECKLIST
+   ════════════════════════════════════ */
+function toggleCheck(item,key){
+  item.classList.toggle('done');
+  updateProgress(key);
+}
+function updateProgress(key){
+  var items=document.querySelectorAll('#items-'+key+' .cl-item');
+  var done=document.querySelectorAll('#items-'+key+' .cl-item.done');
+  var pct=items.length?Math.round(done.length/items.length*100):0;
+  var bar=document.getElementById('bar-'+key);
+  var pctEl=document.getElementById('pct-'+key);
+  if(bar)bar.style.width=pct+'%';
+  if(pctEl)pctEl.textContent=pct+'%';
+}
+function resetChecklist(key){
+  document.querySelectorAll('#items-'+key+' .cl-item').forEach(function(i){i.classList.remove('done');});
+  updateProgress(key);
+}
+
+/* ════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════ */
 function sw(name){
-  document.querySelectorAll('.ntab').forEach(function(t){t.classList.remove('active')});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
-  document.querySelector('[data-tab="'+name+'"]').classList.add('active');
-  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.qabtn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  var btn=document.querySelector('[data-tab="'+name+'"]');
+  if(btn)btn.classList.add('active');
+  var panel=document.getElementById('panel-'+name);
+  if(panel)panel.classList.add('active');
 }
+
+/* ════════════════════════════════════
+   MODAL
+   ════════════════════════════════════ */
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('overlay'))return;
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}});
+
+/* ════════════════════════════════════
+   TOAST
+   ════════════════════════════════════ */
 var _tt;
 function toast(m){
   document.getElementById('toast-msg').textContent=m;
   var e=document.getElementById('toast');e.classList.add('show');clearTimeout(_tt);
-  _tt=setTimeout(function(){e.classList.remove('show')},2300);
+  _tt=setTimeout(function(){e.classList.remove('show')},2500);
 }
+
+/* ════════════════════════════════════
+   CLOCK & DATE
+   ════════════════════════════════════ */
 function updateClock(){
   var n=new Date();
   document.getElementById('clock').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
+  var opts={weekday:'short',day:'2-digit',month:'short'};
+  var el=document.getElementById('tbdate');
+  if(el)el.textContent=n.toLocaleDateString('pt-BR',opts);
 }
 setInterval(updateClock,1000);updateClock();
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal({})});
 
-renderGrid(RESPOSTAS,'respostas-grid');
-renderGrid(CURADOR,'curador-grid');
-renderGrid(AVALIACAO,'avaliacao-grid');
+function formatDate(s){
+  if(!s)return '';
+  var p=s.split('-');
+  return p[2]+'/'+p[1]+'/'+p[0];
+}
+
+/* ════════════════════════════════════
+   EMAILS
+   ════════════════════════════════════ */
+var UPJ=[
+  {nome:'1ª Vara Cível',role:'Unidade Judicial',email:'parnaiba1cv@tjsp.jus.br',icon:'⚖️',bg:'#dbeafe'},
+  {nome:'2ª Vara Cível',role:'Unidade Judicial',email:'parnaiba2cv@tjsp.jus.br',icon:'⚖️',bg:'#dbeafe'},
+  {nome:'Vara da Família e das Sucessões',role:'Unidade Judicial',email:'parnaibafam@tjsp.jus.br',icon:'👨‍👩‍👧',bg:'#fce7f3'},
+  {nome:'UPJ Cível (1ª, 2ª e Família)',role:'Unidade de Processamento Judicial',email:'upj1e2famparnaiba@tjsp.jus.br',icon:'🏛️',bg:'#d1fae5'}
+];
+var MAG=[
+  {nome:'Dra. Thais da Silva Porto',role:'Magistrada — Titular',email:'gabtporto@tjsp.jus.br',icon:'👩‍⚖️',bg:'#ede9fe'},
+  {nome:'Dr. Luis Antonio Nocito Echevarria',role:'Magistrado',email:'gablaechevarria@tjsp.jus.br',icon:'👨‍⚖️',bg:'#ede9fe'},
+  {nome:'Dra. Andressa Martins Bejarano',role:'Magistrada',email:'gabambejarano@tjsp.jus.br',icon:'👩‍⚖️',bg:'#ede9fe'},
+  {nome:'Dr. Daniel Lucio da Silva Porto',role:'Magistrado',email:'gabdporto@tjsp.jus.br',icon:'👨‍⚖️',bg:'#ede9fe'}
+];
+function cpyICO(){return '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'}
+function mailICO(){return '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>'}
+
+function renderEmails(data,gid,isMag){
+  var el=document.getElementById(gid);if(!el)return;
+  el.innerHTML=data.map(function(d,i){
+    return '<div class="ecard'+(isMag?' mag':'')+'">'
+      +'<div class="eico" style="background:'+d.bg+'">'+d.icon+'</div>'
+      +'<div class="ebody">'
+      +'<div class="ename">'+d.nome+'</div>'
+      +'<div class="erole">'+d.role+'</div>'
+      +'<div class="email-addr">'+d.email+'</div>'
+      +'<div class="eacts">'
+      +'<a class="eact eact-mail" href="mailto:'+d.email+'">'+mailICO()+'Enviar e-mail</a>'
+      +'<button class="eact eact-copy" onclick="copyEmail(this,\''+d.email+'\')">'+cpyICO()+'Copiar</button>'
+      +'</div></div></div>';
+  }).join('');
+}
+
+function copyEmail(btn,email){
+  navigator.clipboard.writeText(email).then(function(){
+    btn.classList.add('copied');var o=btn.innerHTML;btn.innerHTML='✓ Copiado';
+    toast('📧 E-mail copiado!');
+    setTimeout(function(){btn.classList.remove('copied');btn.innerHTML=o},1900);
+  });
+}
+
 renderEmails(UPJ,'grid-upj',false);
 renderEmails(MAG,'grid-mag',true);
 </script>
