@@ -249,6 +249,31 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
 .mtxt{font-size:12px;color:var(--ink2);line-height:1.55}
 .mtxt strong{color:var(--ink);font-weight:700}
 
+/* ══ DOCS LIST ══ */
+.docs-list{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;margin-top:10px;
+}
+.docs-list-header{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;background:var(--navy);
+  font-size:11px;font-weight:700;color:#fff;letter-spacing:.3px;text-transform:uppercase;
+}
+.doc-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 14px;border-bottom:1px solid var(--border);
+}
+.doc-item:last-child{border-bottom:none}
+.doc-bullet{
+  width:20px;height:20px;border-radius:5px;
+  background:var(--accent-l);color:var(--accent);
+  font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.doc-text{font-size:12px;color:var(--ink2);line-height:1.55;flex:1}
+.doc-text strong{color:var(--ink);font-weight:700}
+.doc-optional{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--surface3);color:var(--ink4);margin-left:6px;vertical-align:middle}
+
 /* ══ SMART FORM ══ */
 .smartcard{
   background:var(--surface);border:1px solid var(--border);
@@ -876,13 +901,15 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
       <div class="ph-title">Curador Especial</div>
       <div class="ph-desc">Orientações, checklist e respostas prontas para demandas de curador especial.</div>
     </div>
+
     <div class="alert alert-red">
       <div class="alert-icon">🚫</div>
       <div class="alert-content">
-        <div class="alert-title">Não é possível nomear novo Curador Especial se já existe um ativo no processo</div>
-        <div class="alert-text">Quando já há advogado nomeado como curador especial no sistema, o fórum deve ser informado com os dados da nomeação existente. Nova indicação só é possível se a nomeação anterior estiver cancelada.</div>
+        <div class="alert-title">Nomeação ativa — o sistema NÃO permite nova indicação</div>
+        <div class="alert-text">Quando já existe advogado nomeado como curador especial no sistema, <strong>não é tecnicamente possível realizar nova indicação para o mesmo processo</strong>. O advogado já nomeado <strong>deverá atuar como curador de todos os réus que necessitem de curador especial</strong> naquele processo. O fórum deve ser informado com os dados da nomeação ativa. Nova indicação apenas quando a anterior estiver cancelada.</div>
       </div>
     </div>
+
     <div class="checklist-card">
       <div class="cl-head">
         <div class="cl-title">🔎 O que verificar ao receber o ofício</div>
@@ -896,15 +923,17 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
         <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Anotei o <strong>número completo do processo</strong> informado no ofício</div><span class="cl-tag cl-tag-blue">Primeiro</span></div>
         <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Consultei no <strong>DOL → aba "Encaminhamento DPESP-OAB"</strong></div><span class="cl-tag cl-tag-blue">Segundo</span></div>
         <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Identifiquei o resultado: <strong>sem nomeação / nomeação ativa / nomeação cancelada</strong></div><span class="cl-tag cl-tag-blue">Terceiro</span></div>
-        <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Se ativa: anotei <strong>nome, OAB e data</strong> para informar ao fórum</div><span class="cl-tag cl-tag-gold">Se ativo</span></div>
+        <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Se ativa: anotei <strong>nome, OAB e data</strong> para informar ao fórum que o mesmo advogado atuará para todos os requeridos</div><span class="cl-tag cl-tag-gold">Se ativo</span></div>
         <div class="cl-item" onclick="toggleCheck(this,'cur')"><div class="cl-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cl-text">Escolhi a resposta correta abaixo e <strong>preenchi os campos</strong></div><span class="cl-tag cl-tag-gold">Final</span></div>
       </div>
     </div>
+
     <div class="sdiv">Respostas Prontas — Curador Especial</div>
+
     <div class="smartcard">
       <div class="sc-head">
         <div class="sc-ico" style="background:var(--red-l)">🚫</div>
-        <div class="sc-meta"><div class="sc-title">Já Existe Curador Nomeado</div><div class="sc-desc">Sistema exibe botão "Clique aqui" com dados da nomeação ativa</div></div>
+        <div class="sc-meta"><div class="sc-title">Já Existe Curador Nomeado — Mesmo Advogado Atuará</div><div class="sc-desc">Sistema exibe botão "Clique aqui" com dados da nomeação ativa</div></div>
         <span class="sc-badge" style="background:var(--red-l);color:var(--red)">Nomeação Ativa</span>
         <button class="sc-toggle" onclick="toggleForm('f-cu1')">▼</button>
       </div>
@@ -924,6 +953,7 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
         <button class="btn btn-ghost" onclick="saveHistory('cu1','Curador — Já Existe Nomeação','🚫')">Salvar</button>
       </div>
     </div>
+
     <div class="smartcard">
       <div class="sc-head">
         <div class="sc-ico" style="background:var(--accent2-l)">📎</div>
@@ -943,6 +973,7 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
         <button class="btn btn-ghost" onclick="saveHistory('cu2','Curador — Envio de Ofício','📎')">Salvar</button>
       </div>
     </div>
+
     <div class="smartcard">
       <div class="sc-head">
         <div class="sc-ico" style="background:var(--purple-l)">🔄</div>
@@ -962,6 +993,7 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
         <button class="btn btn-ghost" onclick="saveHistory('cu3','Curador — Nomeação Cancelada','🔄')">Salvar</button>
       </div>
     </div>
+
     <div class="smartcard">
       <div class="sc-head">
         <div class="sc-ico" style="background:var(--amber-l)">❓</div>
@@ -990,25 +1022,47 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
       <div class="ph-title">Avaliação Financeira</div>
       <div class="ph-desc">Regras, validade e resposta pronta para quando o assistido está com avaliação vencida.</div>
     </div>
+
     <div class="alert alert-amber">
       <div class="alert-icon">⏳</div>
       <div class="alert-content">
-        <div class="alert-title">Validade: 1 (um) ano a partir da data de concessão</div>
-        <div class="alert-text">Quando o assistido está com avaliação financeira vencida no sistema, <strong>não é possível realizar nova indicação</strong>. O fórum deve ser informado e orientado a comunicar o assistido para comparecer ao atendimento presencial.</div>
+        <div class="alert-title">Validade: 1 (um) ano — indicação bloqueada com avaliação vencida</div>
+        <div class="alert-text">Quando a avaliação financeira do assistido está vencida no sistema, <strong>não é possível realizar nova indicação de advogado conveniado</strong>. O fórum deve ser informado e <strong>intimado a comunicar o assistido para comparecer presencialmente ao Poupatempo munido de todos os documentos atualizados</strong>, para que se proceda à renovação da avaliação e, somente então, seja possível dar prosseguimento à indicação.</div>
       </div>
     </div>
+
+    <div class="sdiv">Atendimento para Nova Avaliação — Poupatempo</div>
+
     <div class="icard">
-      <div class="icard-title">🏛️ Atendimento para Nova Avaliação — Poupatempo</div>
+      <div class="icard-title">🏛️ Local e Horário — OAB SP · Assistência Judiciária Gratuita<br><small style="font-weight:400;color:var(--ink3);font-size:11px">Subseção Santana de Parnaíba — 247ª</small></div>
       <div class="irow"><div class="idot" style="background:var(--accent2)"></div><div class="itext"><strong>Endereço:</strong> Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo</div></div>
       <div class="irow"><div class="idot" style="background:var(--accent2)"></div><div class="itext"><strong>Horário:</strong> Segunda a sexta-feira, das 09h às 12h</div></div>
-      <div class="irow"><div class="idot" style="background:var(--accent2)"></div><div class="itext"><strong>Senhas:</strong> Até 30 por dia, distribuídas presencialmente no local</div></div>
+      <div class="irow"><div class="idot" style="background:var(--accent2)"></div><div class="itext"><strong>Senhas:</strong> Até 30 por dia, distribuídas presencialmente no local — <strong>não há agendamento prévio</strong></div></div>
       <div class="irow"><div class="idot" style="background:var(--accent2)"></div><div class="itext"><strong>Telefone:</strong> (11) 4154-5191</div></div>
     </div>
+
+    <div class="sdiv">Documentos obrigatórios para o atendimento</div>
+
+    <div class="docs-list">
+      <div class="docs-list-header">📋 O assistido deve comparecer munido de todos os documentos abaixo</div>
+      <div class="doc-item"><div class="doc-bullet">1</div><div class="doc-text"><strong>RG original e CPF</strong></div></div>
+      <div class="doc-item"><div class="doc-bullet">2</div><div class="doc-text"><strong>Comprovante de residência atualizado</strong> — água, luz, gás, telefone ou aluguel</div></div>
+      <div class="doc-item"><div class="doc-bullet">3</div><div class="doc-text"><strong>Comprovante de renda de todos os membros da família:</strong><br>
+        • Trabalhador registrado: <em>3 últimos holerites</em><br>
+        • Não registrado: <em>carteira de trabalho, extrato bancário dos últimos 3 meses, declaração do empregador ou carta de próprio punho reconhecida em cartório</em>
+      </div></div>
+      <div class="doc-item"><div class="doc-bullet">4</div><div class="doc-text"><strong>Comprovante de patrimônio</strong> (se houver) — certidão de valor venal, IPTU, veículos, extrato de poupança <span class="doc-optional">se houver</span></div></div>
+      <div class="doc-item"><div class="doc-bullet">5</div><div class="doc-text"><strong>Em casos de alimentos:</strong> documento da criança e endereço da parte contrária <span class="doc-optional">quando aplicável</span></div></div>
+      <div class="doc-item"><div class="doc-bullet">6</div><div class="doc-text"><strong>Em casos de divórcio:</strong> certidão de casamento atualizada <span class="doc-optional">quando aplicável</span></div></div>
+      <div class="doc-item" style="background:var(--red-l);border-top:1px solid var(--red-m)"><div class="doc-bullet" style="background:var(--red-l);color:var(--red)">⚠</div><div class="doc-text" style="color:var(--red);font-weight:600">O atendimento <strong>não será realizado</strong> sem a documentação listada acima. Documentos complementares poderão ser solicitados conforme a necessidade do caso.</div></div>
+    </div>
+
     <div class="sdiv">Resposta Pronta — Avaliação Vencida</div>
+
     <div class="smartcard">
       <div class="sc-head">
         <div class="sc-ico" style="background:var(--amber-l)">⏳</div>
-        <div class="sc-meta"><div class="sc-title">Informar Fórum — Avaliação Financeira Vencida</div><div class="sc-desc">Resposta completa com orientações para o assistido renovar a avaliação</div></div>
+        <div class="sc-meta"><div class="sc-title">Informar Fórum — Avaliação Financeira Vencida</div><div class="sc-desc">Resposta completa com orientações para intimação e renovação pelo assistido</div></div>
         <span class="sc-badge" style="background:var(--amber-l);color:var(--amber)">Impedimento</span>
         <button class="sc-toggle" onclick="toggleForm('f-av1')">▼</button>
       </div>
@@ -1115,6 +1169,8 @@ html,body{min-height:100%;font-family:var(--ff);background:var(--paper);color:va
 <script>
 var SIG="\n\nAtenciosamente,\n\nOAB SP — Assistência Judiciária Gratuita\nSubseção Santana de Parnaíba — 247ª\nTelefone: (11) 4154-5191";
 
+var DOCS_AV = "\n\nDocumentos necessários para o atendimento:\n— RG original e CPF\n— Comprovante de residência atualizado (água, luz, gás, telefone ou aluguel)\n— Comprovante de renda de todos os membros da família:\n   • Trabalhador registrado: 3 últimos holerites\n   • Não registrado: carteira de trabalho, extrato bancário dos últimos 3 meses, declaração do empregador ou carta de próprio punho reconhecida em cartório\n— Comprovante de patrimônio, se houver (certidão de valor venal, IPTU, veículos, extrato de poupança)\n— Em casos de alimentos: documento da criança e endereço da parte contrária\n— Em casos de divórcio: certidão de casamento atualizada\n\nObs.: documentos complementares poderão ser solicitados conforme a necessidade do caso. O atendimento NÃO será realizado sem a documentação listada acima.";
+
 function getMsg(id){
   var p=function(sel){var el=document.getElementById(sel);return el?el.value.trim():''};
   switch(id){
@@ -1122,11 +1178,22 @@ function getMsg(id){
     case 'r2':{var proc=p('r2-proc'),adv=p('r2-adv'),oab=p('r2-oab'),data=p('r2-data');var ref=proc?'\n\nProcesso nº: '+proc:'';var dadosAdv=(adv||oab||data)?'\n\nDados da indicação:\nAdvogado(a): '+(adv||'[NOME DO ADVOGADO]')+'\nInscrição OAB: '+(oab||'[Nº OAB]')+'\nData de indicação: '+(data?formatDate(data):'[DATA]'):'';return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que foi realizada a indicação de advogado(a) conveniado(a) junto à Assessoria de Convênios da Defensoria Pública do Estado de São Paulo para acompanhamento do caso, nos termos do Convênio DPESP/OAB-SP."+ref+dadosAdv+"\n\nO ofício de indicação será encaminhado ao(à) advogado(a) nomeado(a) diretamente pela Defensoria Pública.\n\nPermanecem à inteira disposição."+SIG;}
     case 'r3':{var checks=Array.from(document.querySelectorAll('#check-r3 input[type=checkbox]:checked')).map(function(c){return '— '+c.dataset.item});var obs=p('r3-obs');var lista=checks.length?'\n\n'+checks.join('\n'):'';var extra=obs?'\n\n— '+obs:'';return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que para darmos prosseguimento à análise e eventual indicação de advogado(a) conveniado(a), necessitamos das seguintes informações/documentos:"+lista+extra+"\n\nApós o recebimento, daremos o encaminhamento adequado."+SIG;}
     case 'r4':{var proc=p('r4-proc'),dest=p('r4-dest');var saud=dest?dest+',':'Prezado(a),';var ref=proc?' referente ao processo nº '+proc:'';return saud+"\n\nAcusamos o recebimento do ofício encaminhado a esta Assistência Judiciária"+ref+" e informamos que o documento foi devidamente recepcionado e encaminhado ao setor competente para as providências cabíveis.\n\nQualquer atualização será comunicada oportunamente."+SIG;}
-    case 'cu1':{var proc=p('cu1-proc')||'[NÚMERO DO PROCESSO]',adv=p('cu1-adv')||'[NOME DO ADVOGADO]',oab=p('cu1-oab')||'[Nº OAB]',data=p('cu1-data');var dataFmt=data?formatDate(data):'[DATA]';return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, após consulta ao sistema de indicações da Defensoria Pública do Estado de São Paulo (DOL), verificamos que para o processo nº "+proc+" já consta advogado(a) conveniado(a) nomeado(a) como curador(a) especial:\n\nAdvogado(a): "+adv+"\nInscrição OAB: "+oab+"\nData de Indicação: "+dataFmt+"\n\nEm razão da existência de nomeação válida e ativa no sistema, não é possível realizar nova indicação para o mesmo processo.\n\nCaso o Juízo entenda necessária a substituição do(a) curador(a) ou haja alguma intercorrência, solicitamos comunicação formal para que possamos verificar as providências cabíveis.\n\nPermanecem à inteira disposição."+SIG;}
+
+    case 'cu1':{var proc=p('cu1-proc')||'[NÚMERO DO PROCESSO]',adv=p('cu1-adv')||'[NOME DO ADVOGADO]',oab=p('cu1-oab')||'[Nº OAB]',data=p('cu1-data');var dataFmt=data?formatDate(data):'[DATA]';
+      return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, após consulta ao sistema de indicações da Defensoria Pública do Estado de São Paulo (DOL), verificamos que para o processo nº "+proc+" já consta advogado(a) conveniado(a) nomeado(a) como curador(a) especial:\n\nAdvogado(a): "+adv+"\nInscrição OAB: "+oab+"\nData de Indicação: "+dataFmt+"\n\nEsclarecemos que o sistema não permite a realização de nova indicação enquanto houver nomeação válida e ativa no processo. Em razão disso, o(a) advogado(a) já nomeado(a) acima identificado(a) deverá atuar como curador(a) especial de todos os requeridos que necessitem de curador no referido processo.\n\nCaso o Juízo entenda necessária a substituição do(a) curador(a) ou haja alguma intercorrência que justifique o cancelamento da nomeação atual, solicitamos comunicação formal para que possamos verificar as providências cabíveis junto à Assessoria de Convênios da Defensoria Pública.\n\nPermanecem à inteira disposição."+SIG;}
+
     case 'cu2':{var dest=p('cu2-dest'),proc=p('cu2-proc');var saud=dest?dest+',':'Prezado(a),';var ref=proc?' referente ao processo nº '+proc:'';return saud+"\n\nEm atendimento à demanda de V.Sa., segue em anexo o Ofício de Indicação de Curador Especial"+ref+" para as devidas providências."+SIG;}
+
     case 'cu3':{var proc=p('cu3-proc')||'[NÚMERO DO PROCESSO]',obs=p('cu3-obs');var extra=obs?'\n\n'+obs:'';return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao consultarmos o sistema da Defensoria Pública do Estado de São Paulo, verificamos que a nomeação anterior de curador(a) especial para o processo nº "+proc+" foi CANCELADA, não constando dados de advogado(a) ou data de indicação ativa."+extra+"\n\nEm razão disso, procedemos ao encaminhamento de nova solicitação de indicação junto à Assessoria de Convênios da Defensoria Pública, que analisará o pedido e emitirá o respectivo ofício ao(à) advogado(a) indicado(a).\n\nPermanecem à inteira disposição."+SIG;}
-    case 'cu4':{var dest=p('cu4-dest'),nome=p('cu4-nome');var saud=dest?dest+',':'Prezada(o) Meritíssima(o),';var ref=nome?'\n\n— Nome completo e dados da parte a ser assistida: '+nome+'\n— Cópia do despacho ou decisão judicial solicitando a nomeação':'\n\n— Número completo do processo\n— Nome completo e dados da parte a ser assistida\n— Cópia do despacho ou decisão judicial solicitando a nomeação';return saud+"\n\nEm atenção ao ofício recebido, para que possamos verificar a existência de curador(a) especial já nomeado(a) e dar o encaminhamento adequado, solicitamos que nos informe:"+ref+"\n\nApós o recebimento, realizaremos a consulta ao sistema e daremos retorno com brevidade."+SIG;}
-    case 'av1':{var proc=p('av1-proc'),nome=p('av1-nome');var ref='';if(proc||nome){ref='\n\nReferência:';if(proc)ref+='\nProcesso nº: '+proc;if(nome)ref+='\nAssistido(a): '+nome;}return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao verificar o cadastro do(a) assistido(a) em nosso sistema, identificamos que a avaliação financeira registrada encontra-se VENCIDA — sua validade é de 1 (um) ano."+ref+"\n\nPor esse motivo, não é possível dar prosseguimento à indicação de advogado(a) conveniado(a) sem que seja realizada nova avaliação presencial.\n\nOrientamos que o(a) assistido(a) compareça ao atendimento presencial:\n\nLocal: Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo\nHorário: Segunda a sexta-feira, das 09h às 12h (até 30 senhas/dia)\nTelefone: (11) 4154-5191\n\nApós a nova avaliação, daremos prosseguimento à indicação.\n\nPermanecem à inteira disposição."+SIG;}
+
+    case 'cu4':{var dest=p('cu4-dest'),nome=p('cu4-nome');var saud=dest?dest+',':'Prezada(o) Meritíssima(o),';var ref=nome?'\n\n— Número completo do processo\n— Nome completo e dados da parte a ser assistida: '+nome+'\n— Cópia do despacho ou decisão judicial solicitando a nomeação':'\n\n— Número completo do processo\n— Nome completo e dados da parte a ser assistida\n— Cópia do despacho ou decisão judicial solicitando a nomeação';return saud+"\n\nEm atenção ao ofício recebido, para que possamos verificar a existência de curador(a) especial já nomeado(a) e dar o encaminhamento adequado, solicitamos que nos informe:"+ref+"\n\nApós o recebimento, realizaremos a consulta ao sistema e daremos retorno com brevidade."+SIG;}
+
+    case 'av1':{
+      var proc=p('av1-proc'),nome=p('av1-nome');
+      var ref='';
+      if(proc||nome){ref='\n\nReferência:';if(proc)ref+='\nProcesso nº: '+proc;if(nome)ref+='\nAssistido(a): '+nome;}
+      return "Prezada(o) Meritíssima(o),\n\nEm atenção ao ofício recebido, informamos que, ao verificar o cadastro do(a) assistido(a) em nosso sistema, identificamos que a avaliação financeira registrada encontra-se VENCIDA — sua validade é de 1 (um) ano a partir da data de concessão."+ref+"\n\nEm razão disso, não é possível dar prosseguimento à indicação de advogado(a) conveniado(a) enquanto não seja realizada nova avaliação financeira presencial.\n\nSolicitamos, por gentileza, que o(a) assistido(a) seja INTIMADO(A) a comparecer presencialmente ao atendimento desta Subseção, munido(a) de todos os documentos necessários atualizados, conforme segue:\n\nLocal: OAB SP — Assistência Judiciária Gratuita — Subseção Santana de Parnaíba — 247ª\nEndereço: Av. Tenente Marques, 5297 — Jardim do Luar (Fazendinha), Santana de Parnaíba/SP — dentro do Poupatempo\nHorário: Segunda a sexta-feira, das 09h às 12h (distribuição de até 30 senhas/dia — sem agendamento prévio)\nTelefone: (11) 4154-5191"+DOCS_AV+"\n\nApós a realização da nova avaliação e atualização cadastral, daremos prosseguimento imediato à indicação de advogado(a) conveniado(a).\n\nPermanecem à inteira disposição."+SIG;}
+
     default:return '';
   }
 }
